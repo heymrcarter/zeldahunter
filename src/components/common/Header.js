@@ -1,15 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import { getTitles } from '../titles/title-service';
 
 const Header = () => {
   const titles = getTitles().map((title, i) => {
     const urlFriendlyName = title.toLowerCase().replace(' ', '-').replace('\'', '');
-    return (
-      <li key={i}><Link to={`/titles/${urlFriendlyName}`}>{title}</Link></li>
-    );
+    let url = `/titles/${urlFriendlyName}`;
+    return <li key={i}><Link to={url}>{title}</Link></li>;
   });
-  
+
   return (
     <nav className="navbar navbar-inverse">
       <div className="container-fluid">
@@ -20,7 +19,7 @@ const Header = () => {
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <IndexLink to="/">Zelda Hunter</IndexLink>
+          <IndexLink to="/" className="navbar-brand">Zelda Hunter</IndexLink>
         </div>
 
         <div className="collapse navbar-collapse" id="topbar-navigation">

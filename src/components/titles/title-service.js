@@ -16,6 +16,6 @@ export function getTitles() {
     'The Legend of Zelda: Spirit Tracks',
     'The Legend of Zelda: Skyward Sword',
     'The Legend of Zelda: A Link Between Worlds',
-    'The Legend of Zelda: Tri Force Heroes',
+    'The Legend of Zelda: Tri Force Heroes'
   ];
-};
+}
