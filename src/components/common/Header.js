@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
-import { getTitles } from '../titles/title-service';
 
-const Header = () => {
-  const titles = getTitles().map((title, i) => {
+const Header = ({ titles }) => {
+  const titleList = titles.map((title, i) => {
     const urlFriendlyName = title.toLowerCase().replace(' ', '-').replace('\'', '');
     let url = `/titles/${urlFriendlyName}`;
     return <li key={i}><Link to={url}>{title}</Link></li>;
@@ -36,7 +35,7 @@ const Header = () => {
               </Link>
 
               <ul className="dropdown-menu">
-                {titles}
+                {titleList}
               </ul>
             </li>
           </ul>

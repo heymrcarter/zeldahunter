@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header titles={[]} />
         {this.props.children}
       </div>
     );
