@@ -20,7 +20,7 @@ const Alert = ({ type, children, dismissable }) => {
 
 Alert.propTypes = {
   type: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.array.isRequired,
   dismissable: PropTypes.bool.isRequired
 };
 
