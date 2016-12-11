@@ -1,3 +1,4 @@
 export default {
-  titles: []
+  titles: [],
+  progress: {}
 }
