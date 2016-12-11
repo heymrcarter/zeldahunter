@@ -1,14 +1,8 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
-import { titleNameToUrl } from '../../utils/title-helper';
+import TitleList from '../titles/TitleList';
 
 const Header = ({ titles }) => {
-  const titleList = titles.map((title, i) => {
-    const urlFriendlyName = titleNameToUrl(title);
-    let url = `/titles/${urlFriendlyName}`;
-    return <li key={i}><Link to={url}>{title}</Link></li>;
-  });
-
   return (
     <nav className="navbar navbar-inverse">
       <div className="container-fluid">
@@ -24,7 +18,9 @@ const Header = ({ titles }) => {
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <IndexLink to="/" className="navbar-brand">Zelda Hunter</IndexLink>
+          <IndexLink to="/" className="navbar-brand">
+            <img alt="brand" src="../../triforce-23x20.png"/> Zelda Hunter
+          </IndexLink>
         </div>
 
         <div className="collapse navbar-collapse" id="topbar-navigation">
@@ -40,9 +36,7 @@ const Header = ({ titles }) => {
                 Titles <span className="caret" />
               </Link>
 
-              <ul className="dropdown-menu">
-                {titleList}
-              </ul>
+              <TitleList titles={titles} css="dropdown-menu" />
             </li>
           </ul>
         </div>
