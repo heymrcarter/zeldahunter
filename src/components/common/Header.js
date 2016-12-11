@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
+import { titleNameToUrl } from '../../utils/title-helper';
 
 const Header = ({ titles }) => {
   const titleList = titles.map((title, i) => {
-    const urlFriendlyName = title.toLowerCase().replace(' ', '-').replace('\'', '');
+    const urlFriendlyName = titleNameToUrl(title);
     let url = `/titles/${urlFriendlyName}`;
     return <li key={i}><Link to={url}>{title}</Link></li>;
   });
@@ -12,7 +13,12 @@ const Header = ({ titles }) => {
     <nav className="navbar navbar-inverse">
       <div className="container-fluid">
         <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#topbar-navingation" aria-expanded="false">
+          <button
+            type="button"
+            className="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#topbar-navigation"
+            aria-expanded="false">
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar" />
             <span className="icon-bar" />

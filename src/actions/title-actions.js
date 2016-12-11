@@ -2,7 +2,7 @@ import * as actions from './action-types';
 import titleService from '../services/title-service';
 
 export function loadTitlesSuccess(titles) {
-  return { type: actions.LOAD_TITLES_SUCCESS, titles };
+  return { type: actions.LOAD_TITLES_SUCCESS, titles: titles };
 }
 
 export function loadTitles() {
