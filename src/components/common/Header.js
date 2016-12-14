@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import TitleList from '../titles/TitleList';
 
@@ -43,6 +43,10 @@ const Header = ({ titles }) => {
       </div>
     </nav>
   );
+};
+
+Header.propTypes = {
+  titles: PropTypes.array.isRequired
 };
 
 export default Header;

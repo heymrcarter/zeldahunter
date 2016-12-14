@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TitleList from './TitleList';
 import { bindActionCreators } from 'redux';
-import * as titleActions from '../../actions/title-actions'
+import * as titleActions from '../../actions/title-actions';
 
-class TitlePage extends Component {
+class TitlesPage extends Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -19,7 +19,11 @@ class TitlePage extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+TitlesPage.propTypes = {
+  titles: PropTypes.array.isRequired
+};
+
+function mapStateToProps(state) {
   return {
     titles: state.titles
   };
@@ -31,4 +35,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TitlePage);
+export default connect(mapStateToProps, mapDispatchToProps)(TitlesPage);

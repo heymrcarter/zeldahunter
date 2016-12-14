@@ -11,8 +11,8 @@ describe('initialState', () => {
   });
 
   describe('progress', () => {
-    it('is an empty object', () => {
-      expect(Object.keys(progress).length).to.equal(0);
+    it('has all the games and their collectables', () => {
+      expect(Object.keys(progress).length).to.equal(16);
     });
   });
 });

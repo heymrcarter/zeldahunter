@@ -3,11 +3,11 @@ import React, { PropTypes } from 'react';
 const Alert = ({ type, children, dismissable }) => {
   const cssClass = `alert alert-${type}`;
 
-  const dismissBtn = <button
+  const dismissBtn = (<button
     type="button"
     className="close"
     data-dismiss="alert"
-    aria-label="Close"><span aria-hidden="true">&times;</span></button>;
+    aria-label="Close"><span aria-hidden="true">&times;</span></button>);
 
   return (
     <div className={cssClass}>

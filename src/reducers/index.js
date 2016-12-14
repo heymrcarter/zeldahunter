@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import titles from './title-reducer';
-import {routerReducer} from 'react-router-redux';
+import progress from './progress-reducer';
+import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
   titles,
+  progress,
   routing: routerReducer
 });
 
