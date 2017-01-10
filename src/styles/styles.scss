@@ -1,4 +1,6 @@
 @import 'spacing';
+@import 'title-list';
+@import 'colors';
 
 .navbar-brand > img { display: inline-block; }
 .playthrough-heading {
@@ -14,21 +16,19 @@
 img { max-width: 100%; }
 
 .new-playthrough {
-  a {
-    display: block;
-    width: 100%;
-    min-height: 100px;
-    line-height: 100px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid #0d9263;
-    color: #0d9263;
-    font-size: 18px;
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  line-height: 100px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid $medium-green;
+  color: $medium-green;
+  font-size: 18px;
 
-    &:hover {
-      text-decoration: none;
-      background-color: #0d9263;
-      color: #fff;
-    }
+  &:hover {
+    text-decoration: none;
+    background-color: $medium-green;
+    color: #fff;
   }
 }

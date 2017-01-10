@@ -11,19 +11,13 @@ class TitlePage extends Component {
       title: Object.assign({}, this.props.title),
       progress: Object.assign({}, this.props.progress)
     };
-
-    this.newPlaythrough = this.newPlaythrough.bind(this);
-  }
-
-  newPlaythrough(name) {
-    alert(`Hooray! New ${name}`)
   }
 
   render() {
     return (
       <div>
         <TitleMetadata title={this.props.title}/>
-        <PlaythroughSelector playthroughs={[]} newPlaythrough={this.newPlaythrough} />
+        <PlaythroughSelector playthroughs={[]} titleId={this.props.title.id} />
       </div>
     );
   }
@@ -34,7 +28,7 @@ TitlePage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const titleId = ownProps.params.id;
+  const titleId = ownProps.params.titleId;
   let title = {id: '', name: ''};
   let progress = {};
 

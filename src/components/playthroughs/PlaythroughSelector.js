@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import Playthough from './Playthough';
-import NewPlaythrough from './NewPlaythrough';
+import { Link } from 'react-router';
 
-const PlaythoughSelector = ({ playthroughs, newPlaythrough }) => {
+const PlaythoughSelector = ({ playthroughs, titleId }) => {
   let headingText = '3 Playthroughs in Progress!';
 
   let gridComponents = playthroughs.map((playthrough, i) => {
@@ -10,24 +10,25 @@ const PlaythoughSelector = ({ playthroughs, newPlaythrough }) => {
   });
 
   const numPlaythroughs = gridComponents.length;
+  const newPlaythroughUrl = `/titles/${titleId}/new-playthrough`;
 
   if (numPlaythroughs === 0) {
-    gridComponents.push(<NewPlaythrough onClick={newPlaythrough}/>);
-    gridComponents.push(<NewPlaythrough onClick={newPlaythrough}/>);
-    gridComponents.push(<NewPlaythrough onClick={newPlaythrough}/>);
+    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
+    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
+    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
 
     headingText = 'No Playthroughs Started!'
   }
 
   if (numPlaythroughs === 1) {
-    gridComponents.push(<NewPlaythrough onClick={newPlaythrough}/>);
-    gridComponents.push(<NewPlaythrough onClick={newPlaythrough}/>);
+    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
+    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
 
     headingText = '1 Playthrough in Progress!'
   }
 
   if (numPlaythroughs === 2) {
-    gridComponents.push(<NewPlaythrough onClick={newPlaythrough}/>);
+    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
 
     headingText = '2 Playthroughs in Progress';
   }
@@ -50,8 +51,7 @@ const PlaythoughSelector = ({ playthroughs, newPlaythrough }) => {
 };
 
 PlaythoughSelector.propTypes = {
-  playthroughs: PropTypes.array.isRequired,
-  newPlaythrough: PropTypes.func.isRequired
+  playthroughs: PropTypes.array.isRequired
 };
 
 export default PlaythoughSelector;
