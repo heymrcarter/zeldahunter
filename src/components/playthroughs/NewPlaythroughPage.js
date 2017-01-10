@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 class NewPlaythroughPage extends Component {
   constructor(props, context) {
@@ -13,9 +13,5 @@ class NewPlaythroughPage extends Component {
     );
   }
 }
-
-NewPlaythroughPage.propTypes = {
-  
-};
 
 export default NewPlaythroughPage;

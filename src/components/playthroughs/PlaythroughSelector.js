@@ -17,14 +17,14 @@ const PlaythoughSelector = ({ playthroughs, titleId }) => {
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
 
-    headingText = 'No Playthroughs Started!'
+    headingText = 'No Playthroughs Started!';
   }
 
   if (numPlaythroughs === 1) {
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
 
-    headingText = '1 Playthrough in Progress!'
+    headingText = '1 Playthrough in Progress!';
   }
 
   if (numPlaythroughs === 2) {
@@ -51,7 +51,8 @@ const PlaythoughSelector = ({ playthroughs, titleId }) => {
 };
 
 PlaythoughSelector.propTypes = {
-  playthroughs: PropTypes.array.isRequired
+  playthroughs: PropTypes.array.isRequired,
+  titleId: PropTypes.string.isRequired
 };
 
 export default PlaythoughSelector;
