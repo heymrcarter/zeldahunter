@@ -23,7 +23,7 @@ class TitlePage extends Component {
     return (
       <div>
         <TitleMetadata title={this.props.title}/>
-        <PlaythroughSelector playthroughs={[]} newPlaythrough={this.newPlaythrough} />
+        <PlaythroughSelector playthroughs={[]} title={this.props.title} />
       </div>
     );
   }
