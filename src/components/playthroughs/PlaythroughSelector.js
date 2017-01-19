@@ -1,16 +1,12 @@
 import React, { PropTypes } from 'react';
-import Playthough from './Playthough';
+import Playthrough from './Playthough';
 import { Link } from 'react-router';
 
 const PlaythoughSelector = ({ playthroughs, titleId }) => {
-  let headingText = '3 Playthroughs in Progress!';
-
-  let gridComponents = playthroughs.map((playthrough, i) => {
-    return <Playthough playthrough={playthrough} key={i} />;
-  });
-
-  const numPlaythroughs = gridComponents.length;
   const newPlaythroughUrl = `/titles/${titleId}/new-playthrough`;
+  const numPlaythroughs = playthroughs.length;
+  let headingText = `${numPlaythroughs} Playthroughs in Progress!`;
+  let gridComponents = [];  
 
   if (numPlaythroughs === 0) {
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
@@ -19,6 +15,10 @@ const PlaythoughSelector = ({ playthroughs, titleId }) => {
 
     headingText = 'No Playthroughs Started!';
   }
+
+  playthroughs.map((playthrough, i) => {
+    gridComponents.push(<Playthrough playthrough={playthrough} key={i} />);
+  });
 
   if (numPlaythroughs === 1) {
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
@@ -29,8 +29,6 @@ const PlaythoughSelector = ({ playthroughs, titleId }) => {
 
   if (numPlaythroughs === 2) {
     gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
-
-    headingText = '2 Playthroughs in Progress';
   }
 
   return (

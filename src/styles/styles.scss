@@ -15,6 +15,15 @@
 
 img { max-width: 100%; }
 
+.playthrough {
+  display: block;
+  width: 100%;
+  border: 1px solid $medium-green;
+  color: #fff;
+  background-color: $medium-green;
+  padding: 5px 12px 20px 12px;
+}
+
 .new-playthrough {
   display: block;
   width: 100%;

@@ -16,26 +16,33 @@ class TitlePage extends Component {
     return (
       <div>
         <TitleMetadata title={this.props.title}/>
-        <PlaythroughSelector playthroughs={[]} title={this.props.title} />
+        <PlaythroughSelector playthroughs={this.props.playthroughs} titleId={this.props.title.id} />
       </div>
     );
   }
 }
 
 TitlePage.propTypes = {
-  title: PropTypes.object.isRequired
+  title: PropTypes.object.isRequired,
+  playthroughs: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
-  const titleId = ownProps.params.id;
+  const titleId = ownProps.params.titleId;
   let title = {id: '', name: ''};
+  let playthroughs = [];
   
   if (titleId && state.titles.length > 0) {
     title = state.titles.filter(t => t.id === titleId)[0] || null;
   }
 
+  if (titleId && state.titles.length > 0) {
+    playthroughs = state.playthroughs.filter(p => p.titleId === titleId);
+  }
+
   return {
-    title
+    title,
+    playthroughs
   };
 }
 

@@ -12,9 +12,11 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 import './styles/styles.scss';
 import { loadTitles } from './actions/title-actions';
+import { loadPlaythroughs } from './actions/playthrough-actions';
 
 const store = configureStore();
 store.dispatch(loadTitles());
+store.dispatch(loadPlaythroughs());
 
 const history = syncHistoryWithStore(browserHistory, store);
 
