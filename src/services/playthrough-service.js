@@ -58,7 +58,7 @@ export default class PlaythroughService {
 
   savePlaythrough(playthrough) {
     const playthroughs = JSON.parse(this.store.getItem(PLAYTHROUGH_KEY));
-    playthrough = Object.assign({}, playthrough);
+    playthrough = Object.assign({}, playthrough, { lastUpdated: Date.now() });
     
     return new Promise((resolve, reject) => {
       playthrough.id = generateId(playthroughs);

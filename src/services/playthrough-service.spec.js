@@ -194,14 +194,22 @@ describe('playthroughService', () => {
         id: 1,
         name: 'playthrough',
         progress: [],
-        titleId: 'title-id'
+        titleId: 'title-id',
+      };
+      
+      const expectedPlaythrough = {
+        id: 1,
+        name: 'playthrough',
+        progress: [],
+        titleId: 'title-id',
+        lastUpdated: Date.now()
       };
 
       playthroughService.savePlaythrough(newPlaythrough)
         .then(playthrough => {
           expect(setItemSpy.calledOnce).to.equal(true);
-          expect(playthrough).to.deep.equal(newPlaythrough);
-        });      
+          expect(playthrough).to.deep.equal(expectedPlaythrough);
+        });
     });
 
     it('give an error when validation failed', () => {
