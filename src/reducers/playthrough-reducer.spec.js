@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import * as actions from '../actions/action-types';
-import playthroughReducer from './playthrough-reducer';
+import playthroughReducer, { startPlaythroughReducer } from './playthrough-reducer';
+import sinon from 'sinon';
 
 describe('playthroughReducer', () => {
   describe('SAVE_PLAYTHROUGH_SUCCESS', () => {
@@ -13,7 +14,7 @@ describe('playthroughReducer', () => {
       }
     });
 
-    it('returns the saved playthrough', () => {
+    it('adds the new playthrough to state', () => {
       const action = {
         type: actions.SAVE_PLAYTHROUGH_SUCCESS,
         playthrough: playthrough
@@ -21,7 +22,7 @@ describe('playthroughReducer', () => {
 
       const actual = playthroughReducer([], action);
 
-      expect(actual).to.deep.equal(playthrough);
+      expect(actual).to.deep.equal([playthrough]);
     });
   });
 

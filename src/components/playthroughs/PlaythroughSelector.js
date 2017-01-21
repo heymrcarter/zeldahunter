@@ -1,34 +1,43 @@
 import React, { PropTypes } from 'react';
 import Playthrough from './Playthough';
 import { Link } from 'react-router';
+import PlaythroughForm from './PlaythroughForm';
 
-const PlaythoughSelector = ({ playthroughs, titleId }) => {
+const PlaythoughSelector = (props) => {
+  const {
+    playthroughs,
+    titleId,
+    startNewPlaythrough,
+    newPlaythrough,
+    saveNewPlaythrough,
+    newPlaythroughChange
+  } = props;
+  
   const newPlaythroughUrl = `/titles/${titleId}/new-playthrough`;
   const numPlaythroughs = playthroughs.length;
+  const maxPlaythroughs = 3;
   let headingText = `${numPlaythroughs} Playthroughs in Progress!`;
   let gridComponents = [];  
-
-  if (numPlaythroughs === 0) {
-    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
-    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
-    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
-
-    headingText = 'No Playthroughs Started!';
-  }
 
   playthroughs.map((playthrough, i) => {
     gridComponents.push(<Playthrough playthrough={playthrough} key={i} />);
   });
 
-  if (numPlaythroughs === 1) {
-    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
-    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
+  while(gridComponents.length >= 0 && gridComponents.length < maxPlaythroughs) {
+    const position = gridComponents.length + 1;
 
-    headingText = '1 Playthrough in Progress!';
-  }
-
-  if (numPlaythroughs === 2) {
-    gridComponents.push(<Link to={newPlaythroughUrl} className="new-playthrough">New Playthrough</Link>);
+    if (newPlaythrough.starting && newPlaythrough.position === position) {
+      gridComponents.push(<PlaythroughForm changeHandler={newPlaythroughChange} submitHandler={saveNewPlaythrough} />);    
+    } else {
+      gridComponents.push(
+        <Link
+          to={newPlaythroughUrl}
+          onClick={startNewPlaythrough}
+          className="new-playthrough"
+          data-position={position}>
+            New Playthrough
+          </Link>);
+    }
   }
 
   return (
@@ -50,7 +59,11 @@ const PlaythoughSelector = ({ playthroughs, titleId }) => {
 
 PlaythoughSelector.propTypes = {
   playthroughs: PropTypes.array.isRequired,
-  titleId: PropTypes.string.isRequired
+  titleId: PropTypes.string.isRequired,
+  startNewPlaythrough: PropTypes.func.isRequired,
+  newPlaythrough: PropTypes.object.isRequired,
+  saveNewPlaythrough: PropTypes.func.isRequired,
+  newPlaythroughChange: PropTypes.func.isRequired
 };
 
 export default PlaythoughSelector;
