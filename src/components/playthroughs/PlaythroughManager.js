@@ -212,15 +212,15 @@ class PlaythroughManager extends Component {
         </h2>
 
         <div className="row m5-top">
-          <div className="col-sm-12 col-md-4">
+          <div className="col-sm-12 col-md-4 m3-bottom">
             {this.renderComponentForSlot('slot-1')}
           </div>
 
-          <div className="col-sm-12 col-md-4">
+          <div className="col-sm-12 col-md-4 m3-bottom">
             {this.renderComponentForSlot('slot-2')}
           </div>
 
-          <div className="col-sm-12 col-md-4">
+          <div className="col-sm-12 col-md-4 m3-bottom">
             {this.renderComponentForSlot('slot-3')}
           </div>
         </div>

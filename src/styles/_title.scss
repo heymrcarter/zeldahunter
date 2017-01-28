@@ -1,0 +1,35 @@
+@import 'colors';
+
+.title-metadata {
+  border: 1px $medium-green solid;
+  padding: 15px 12px 20px 12px;
+  margin-bottom: 30px;
+  background: #fff;
+
+  .row { display: table; }
+  [class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: center;
+  }
+
+  h1 {
+    font-size: 46px;
+    color: $grey;
+  }
+
+  aside {
+    font-size: 18px;
+  }
+
+  &.mini {
+    .expand-title {
+      text-align: center;
+      width: 60px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    aside { display: none; }
+  }
+}

@@ -10,34 +10,14 @@ class TitlePage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    let playthroughMetadata = {};
-
-    props.playthroughs.forEach((playthrough, i) => {
-      playthroughMetadata[playthrough.id] = {
-        playthrough,
-        deleting: false,
-        position: i+1
-      };
-    });
-
-    this.state = {
+   this.state = {
       title: props.title,
       playthroughs: props.playthroughs,
-      playthroughMetadata,
-      newPlaythrough: {
-        starting: false,        
-        position: 0,
-        playthrough: { name: '', titleId: '', progress: [] }
-      },
-      deletePlaythroughValidation: ''
+      miniMetadata: props.playthroughs.length > 0
     };
 
-    this.startNewPlaythrough = this.startNewPlaythrough.bind(this);
-    this.saveNewPlaythrough = this.saveNewPlaythrough.bind(this);
-    this.newPlaythroughChange = this.newPlaythroughChange.bind(this);
-    this.startDeletePlaythrough = this.startDeletePlaythrough.bind(this);
-    this.deletePlaythrough = this.deletePlaythrough.bind(this);
-  }
+    this.showAllMetadata = this.showAllMetadata.bind(this);
+  }  
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.title.id != this.state.title.id) {
@@ -45,80 +25,23 @@ class TitlePage extends Component {
     }
     
     if (!deepEqual(this.state.playthroughs, nextProps.playthroughs)) {
-      this.setState({ playthroughs: Object.assign([], [...nextProps.playthroughs]) });
-    }
-
-    if (nextProps.startingNewPlaythrough !== this.state.startingNewPlaythrough) {
-      this.setState({ startingNewPlaythrough: nextProps.startingNewPlaythrough });
-    }
-  }
-
-  startNewPlaythrough(event) {
-    event.preventDefault();
-    const newPlaythrough = Object.assign({}, this.state.newPlaythrough);
-
-    newPlaythrough.starting = true;
-    newPlaythrough.position = parseInt(event.target.getAttribute('data-position'));
-
-    this.setState({ newPlaythrough });
-  }
-
-  saveNewPlaythrough(event) {
-    event.preventDefault();
-
-    this.props.actions.savePlaythrough(this.state.newPlaythrough.playthrough)
-      .then((playthrough) => {
-        const newPlaythroughs = Object.assign([], [...this.state.playthroughs], [playthrough]);
-        const newState = Object.assign({}, this.state, {
-          playthroughs: newPlaythroughs,
-          newPlaythrough:  {
-            starting: false,
-            position: 0,
-            playthrough: { name: '', titleId: '', progress: [] }
-          }
-        });
-        this.setState(newState);
+      const newState = Object.assign({}, this.state, {
+        playthroughs: Object.assign([], [...nextProps.playthroughs]),
+        miniMetadata: nextProps.playthroughs.length > 0
       });
-  }
-
-  newPlaythroughChange(event) {
-    const playthrough = Object.assign({}, this.state.newPlaythrough.playthrough);
-    playthrough.name = event.target.value;
-    playthrough.titleId = this.state.title.id;
-    this.setState({ newPlaythrough: Object.assign({}, this.state.newPlaythrough, {playthrough}) });
-  }
-
-  startDeletePlaythrough(event) {
-    event.preventDefault();
-
-    const playthroughMetadata = Object.assign({}, this.state.playthroughMetadata);
-    let playthroughToDelete = playthroughMetadata[event.target.getAttribute('data-playthrough-id')];
-
-    playthroughToDelete.deleting = true;
-
-    this.setState({ playthroughMetadata });
-  }
-
-  deletePlaythroughValidationChange(event) {
-    this.setState({ deletePlaythroughValidation: event.target.value });
-  }
-
-  deletePlaythrough(event) {
-    event.preventDefault();
-
-    const playthroughToDelete = parseInt(event.target.getAttribute('data-playthrough-id'));
-
-    if (this.state.deletePlaythroughValidation === playthroughMetadata[playthroughToDelete].playthrough.name) {
-      alert('Ok, Deleting this playthrough')
-    } else {
-      alert(`Validation failed. Please enter the playthrough's name to continue`);
+      this.setState(newState);
     }
+  }
+
+  showAllMetadata(event) {
+    event.preventDefault();
+    this.setState({ miniMetadata: false });
   }
 
   render() {
     return (
       <div>
-        <TitleMetadata title={this.state.title}/>
+        <TitleMetadata title={this.state.title} mini={this.state.miniMetadata} expand={this.showAllMetadata}/>
         <PlaythroughManager titleId={this.state.title.id} />
       </div>
     );
@@ -128,7 +51,6 @@ class TitlePage extends Component {
 TitlePage.propTypes = {
   title: PropTypes.object.isRequired,
   playthroughs: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -152,10 +74,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(playthroughActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TitlePage);
+export default connect(mapStateToProps)(TitlePage);
