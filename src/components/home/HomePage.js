@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import Alert from '../common/Alert';
 import { Link } from 'react-router';
 
-class HomePage extends Component {
-  constructor(props, context) {
-   super(props, context);
-  }
-
-  render() {
-    return (
+const HomePage = () => {
+  return (
       <div>
         <div className="jumbotron">
           <h1>It's dangerous to go alone!</h1>
@@ -21,7 +16,6 @@ class HomePage extends Component {
         </Alert>
       </div>
     );
-  }
-}
+};
 
 export default HomePage;
