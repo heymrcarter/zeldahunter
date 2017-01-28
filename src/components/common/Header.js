@@ -19,7 +19,8 @@ const Header = ({ titles }) => {
             <span className="icon-bar" />
           </button>
           <IndexLink to="/" className="navbar-brand">
-            <img alt="brand" src="../../triforce-23x20.png"/> Zelda Hunter
+            <img alt="brand" src="../../triforce-23x20.png"/>
+            <span>Zelda Hunter</span>
           </IndexLink>
         </div>
 
