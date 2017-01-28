@@ -223,4 +223,49 @@ describe('playthroughService', () => {
         });
     });
   });
+
+  describe('deletePlaythrough', () => {
+    let validator;
+
+    beforeEach(() => {
+      mockStore = {
+        getItem: () => {
+          return JSON.stringify([
+            {
+              id: 1,
+              name: 'playthrough-1'
+            },
+            {
+              id: 2,
+              name: 'playthrough-2'
+            }
+          ]);
+        },
+        setItem: () => {
+          return;
+        }
+      };
+
+      validator = {
+        validate: () => { return true; }
+      };
+
+      playthroughService = new PlaythroughService(mockStore, validator);
+    });
+
+    it('deletes the playthrough and returns the deleted playthrough', (done) => {
+      const setItemSpy = sinon.spy(mockStore, 'setItem');
+      const playthroughToDelete = {
+        id: 1,
+        name: 'playthrough-1'
+      };
+      
+      playthroughService.deletePlaythrough(playthroughToDelete.id)
+        .then(deletedPlaythrough => {
+          expect(setItemSpy.calledOnce).to.equal(true);
+          expect(deletedPlaythrough).to.deep.equal(playthroughToDelete);
+          done();
+        });
+    });
+  });
 });

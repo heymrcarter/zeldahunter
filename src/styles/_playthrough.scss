@@ -7,6 +7,29 @@
   color: #fff;
   background-color: $medium-green;
   padding: 5px 12px 20px 12px;
+  position: relative;
+
+  .delete-playthrough {
+    color: #fff;
+    position: absolute;
+    bottom: 19px;
+    right: 12px;
+    font-size: 18px;
+
+    .tooltip {
+      left: -30px;  
+      opacity: 0;
+      transition: opacity .25s ease-in-out;
+    }
+
+    &:hover {
+      .tooltip { 
+        display: block;
+        opacity: 1;
+        transition: opacity .25s ease-in-out;
+      }
+    }
+  }
 }
 
 .new-playthrough {
@@ -32,6 +55,7 @@
   background: $medium-green;
   color: #fff;
   padding: 3px 12px 14px 12px;
+  position: relative;
   
   h3 {
     font-size: 18px;
@@ -45,8 +69,49 @@
     padding: 10px;
     width: 100%;
 
-    &::-webkit-input-placeholder { color: #fff; }
-    &::-moz-placeholder { color: #fff; opacity: 1; }
-    &:-ms-input-placeholder { color: #fff; }
+    &::-webkit-input-placeholder { color: #fff; opacity: .6; }
+    &::-moz-placeholder { color: #fff; opacity: .6; }
+    &:-ms-input-placeholder { color: #fff; opacity: .6; }
+  }
+
+  .cancel-playthrough {
+    color: #fff;
+    position: absolute;
+    top: 18px;
+    right: 12px;
+    font-size: 16px;
+  }
+}
+
+.delete-playthrough-form {
+  background: $red;
+  color: #fff;
+  padding: 12px;
+
+  input[type=text] {
+    width: 100%;
+    padding: 10px;
+
+    &.invalid {
+      color: $red;
+    }
+
+    &.valid {
+      color: $medium-green;
+    }
+  }
+
+  .playthrough-name-input {
+    position: relative;
+
+    .glyphicon {
+      position: absolute;
+      top: 16px;
+      right: 5px;
+      font-size: 16px;
+
+      &.valid { color: $medium-green; }
+      &.invalid { color: $red; }
+    }
   }
 }

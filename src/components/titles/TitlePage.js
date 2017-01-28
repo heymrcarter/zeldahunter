@@ -1,28 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import PlaythroughSelector from '../playthroughs/PlaythroughSelector';
 import TitleMetadata from './TitleMetadata';
 import * as playthroughActions from '../../actions/playthrough-actions';
 import deepEqual from 'deep-equal';
 import { bindActionCreators } from 'redux';
+import PlaythroughManager from '../playthroughs/PlaythroughManager';
 
 class TitlePage extends Component {
   constructor(props, context) {
     super(props, context);
 
+    let playthroughMetadata = {};
+
+    props.playthroughs.forEach((playthrough, i) => {
+      playthroughMetadata[playthrough.id] = {
+        playthrough,
+        deleting: false,
+        position: i+1
+      };
+    });
+
     this.state = {
       title: props.title,
       playthroughs: props.playthroughs,
+      playthroughMetadata,
       newPlaythrough: {
-        starting: false,
+        starting: false,        
         position: 0,
         playthrough: { name: '', titleId: '', progress: [] }
-      }
+      },
+      deletePlaythroughValidation: ''
     };
 
     this.startNewPlaythrough = this.startNewPlaythrough.bind(this);
     this.saveNewPlaythrough = this.saveNewPlaythrough.bind(this);
     this.newPlaythroughChange = this.newPlaythroughChange.bind(this);
+    this.startDeletePlaythrough = this.startDeletePlaythrough.bind(this);
+    this.deletePlaythrough = this.deletePlaythrough.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,7 +65,7 @@ class TitlePage extends Component {
 
   saveNewPlaythrough(event) {
     event.preventDefault();
-    
+
     this.props.actions.savePlaythrough(this.state.newPlaythrough.playthrough)
       .then((playthrough) => {
         const newPlaythroughs = Object.assign([], [...this.state.playthroughs], [playthrough]);
@@ -74,17 +88,38 @@ class TitlePage extends Component {
     this.setState({ newPlaythrough: Object.assign({}, this.state.newPlaythrough, {playthrough}) });
   }
 
+  startDeletePlaythrough(event) {
+    event.preventDefault();
+
+    const playthroughMetadata = Object.assign({}, this.state.playthroughMetadata);
+    let playthroughToDelete = playthroughMetadata[event.target.getAttribute('data-playthrough-id')];
+
+    playthroughToDelete.deleting = true;
+
+    this.setState({ playthroughMetadata });
+  }
+
+  deletePlaythroughValidationChange(event) {
+    this.setState({ deletePlaythroughValidation: event.target.value });
+  }
+
+  deletePlaythrough(event) {
+    event.preventDefault();
+
+    const playthroughToDelete = parseInt(event.target.getAttribute('data-playthrough-id'));
+
+    if (this.state.deletePlaythroughValidation === playthroughMetadata[playthroughToDelete].playthrough.name) {
+      alert('Ok, Deleting this playthrough')
+    } else {
+      alert(`Validation failed. Please enter the playthrough's name to continue`);
+    }
+  }
+
   render() {
     return (
       <div>
         <TitleMetadata title={this.state.title}/>
-        <PlaythroughSelector
-          playthroughs={this.state.playthroughs}
-          titleId={this.state.title.id}
-          newPlaythrough={this.state.newPlaythrough}
-          startNewPlaythrough={this.startNewPlaythrough}
-          saveNewPlaythrough={this.saveNewPlaythrough}
-          newPlaythroughChange={this.newPlaythroughChange} />
+        <PlaythroughManager titleId={this.state.title.id} />
       </div>
     );
   }

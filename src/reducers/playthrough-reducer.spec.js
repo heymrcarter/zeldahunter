@@ -44,4 +44,39 @@ describe('playthroughReducer', () => {
       expect(actual).to.deep.equal(expectedPlaythroughs);
     });
   });
+
+  describe('DELETE_PLAYTHROUGH_SUCCESS', () => {
+    it('removed the playthrough from state', () => {
+      const state = [
+        {
+          id: 1,
+          name: 'playthrough-1',
+          titleId: 'titleid-1'
+        },
+        {
+          id: 2,
+          name: 'playthrough-2',
+          titleId: 'titleid-1'
+        },
+        {
+          id: 3,
+          name: 'playthrough-3',
+          titleId: 'titleid-2'
+        }
+      ];
+
+      const action = {
+        type: actions.DELETE_PLAYTHROUGH_SUCCESS,
+        playthrough: {
+          id: 1,
+          name: 'playthrough-1',
+          titleId: 'titleid-1'
+        }
+      };
+
+      const actual = playthroughReducer(state, action);
+
+      expect(actual).to.deep.equal(state.filter(p => p.id !== 1));
+    });
+  });
 });

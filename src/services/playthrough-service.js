@@ -74,4 +74,14 @@ export default class PlaythroughService {
       }
     });
   }
+
+  deletePlaythrough(playthroughId) {
+    const playthroughs = JSON.parse(this.store.getItem(PLAYTHROUGH_KEY));
+    const deletedPlaythrough = playthroughs.filter(p => p.id === playthroughId);
+    const newPlaythroughs = playthroughs.filter(p => p.id !== playthroughId);
+
+    this.store.setItem(PLAYTHROUGH_KEY, JSON.stringify(newPlaythroughs));
+
+    return new Promise(resolve => resolve(deletedPlaythrough[0]));
+  }
 }

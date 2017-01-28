@@ -7,6 +7,8 @@ export default function plathroughReducer(state = initialState.playthroughs, act
       return state.concat(action.playthrough);
     case actions.LOAD_PLAYTHROUGHS_SUCCESS:
       return state.concat(action.playthroughs);
+    case actions.DELETE_PLAYTHROUGH_SUCCESS:
+      return state.filter(p => p.id !== action.playthrough.id);
     default:
       return state;
   }

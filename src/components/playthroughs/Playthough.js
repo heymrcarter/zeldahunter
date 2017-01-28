@@ -9,19 +9,34 @@ function formatDate(timeInMilliseconds) {
   return `${month}/${day}/${year}`;
 }
 
-const Playthrough = ({ playthrough }) => {
+const Playthrough = ({ playthrough, startDeletePlaythrough, position }) => {
   return (
     <div className="playthrough">
       <h3 className="playthrough-name">{playthrough.name}</h3>
       <div className="playthrough-body">
         Last save: {formatDate(playthrough.lastUpdated)}
       </div>
+
+      <a href="#delete"
+        className="delete-playthrough"
+        onClick={startDeletePlaythrough}
+        data-playthrough-id={playthrough.id}
+        data-position={position}>
+          <span className="glyphicon glyphicon-trash" />
+          <span className="sr-only">Delete playthrough</span>
+          <div className="tooltip bottom" role="tooltip">
+            <div className="tooltip-arrow" />
+            <div className="tooltip-inner">Delete playthrough</div>
+          </div>
+      </a>
     </div>
   );
 };
 
 Playthrough.propTypes = {
-  playthrough: PropTypes.object.isRequired
+  playthrough: PropTypes.object.isRequired,
+  startDeletePlaythrough: PropTypes.func.isRequired,
+  position: PropTypes.string.isRequired
 };
 
 export default Playthrough;

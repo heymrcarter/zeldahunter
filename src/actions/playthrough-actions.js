@@ -28,3 +28,16 @@ export function loadPlaythroughs() {
       });
   };
 }
+
+export function deletePlaythroughSuccess(playthrough) {
+  return { type: actions.DELETE_PLAYTHROUGH_SUCCESS, playthrough };
+}
+
+export function deletePlaythrough(playthroughId) {
+  return dispatch => {
+    return playthroughService.deletePlaythrough(playthroughId)
+      .then(playthrough => {
+        dispatch(deletePlaythroughSuccess(playthrough));
+      });
+  };
+}

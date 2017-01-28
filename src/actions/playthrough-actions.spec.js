@@ -94,4 +94,65 @@ describe('playthroughActions', () => {
         });
     }); 
   });
+
+  describe('deletePlaythroughSuccess', () => {
+    it('returns a DELETE_PLAYTHROUGH_SUCCESS action', () => {
+      const playthrough = {
+        id: '1',
+        name: 'playthrough-1',
+        titleId: 'title-id'
+      };
+      
+      const actual = playthroughActions.deletePlaythroughSuccess(playthrough);
+
+      expect(actual.type).to.equal('DELETE_PLAYTHROUGH_SUCCESS');
+      expect(actual.playthrough).to.deep.equal(playthrough);
+    }); 
+  });
+
+  describe('deletePlaythrough', () => {
+    let mockStore;
+
+    beforeEach(() => {
+      const middlewares = [thunk];
+      mockStore = configureMockStore(middlewares);
+    });
+
+    it('dispatches delete and load actions', (done) => {
+      const playthroughs = [
+        {
+          id: 1,
+          name: 'playthrough-1',
+          titleId: 'titleid-1'
+        },
+        {
+          id: 2,
+          name: 'playthrough-2',
+          titleId: 'titleid-2'
+        },
+        {
+          id: 3,
+          name: 'playthrough-3',
+          titleId: 'titleid-2'
+        }
+      ];
+
+      const expectedAction = {
+        type: 'DELETE_PLAYTHROUGH_SUCCESS',
+        playthrough: {
+          id: 1,
+          name: 'playthrough-1',
+          titleId: 'titleid-1'
+        }
+      };
+
+      const store = mockStore({ playthroughs }, expectedAction);
+      store.dispatch(playthroughActions.deletePlaythrough(1))
+        .then(() => {
+          const actions = store.getActions();
+          expect(actions[0].type).to.equal('DELETE_PLAYTHROUGH_SUCCESS');
+          done();
+        });
+    });
+  });
 });

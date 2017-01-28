@@ -1,0 +1,265 @@
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import * as playthroughActions from '../../actions/playthrough-actions';
+import deepEqual from 'deep-equal';
+import { bindActionCreators } from 'redux';
+import Playthrough from './Playthough';
+import DeletePlaythrough from './DeletePlaythrough';
+import PlaythroughForm from './PlaythroughForm';
+
+const ANCHOR_TAG = 'A';
+
+class PlaythroughManager extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      titleId: props.titleId,
+      slotManager: props.slotManager,
+      playthroughsInProgress: props.playthroughsInProgress
+    };
+
+    this.renderComponentForSlot = this.renderComponentForSlot.bind(this);
+    this.startDeletePlaythrough = this.startDeletePlaythrough.bind(this);
+    this.deletePlaythrough = this.deletePlaythrough.bind(this);
+    this.confirmPlaythroughDelete = this.confirmPlaythroughDelete.bind(this);
+    this.startNewPlaythrough = this.startNewPlaythrough.bind(this);
+    this.newPlaythrough = this.newPlaythrough.bind(this);
+    this.createNewPlaythrough = this.createNewPlaythrough.bind(this);
+    this.cancelNewPlaythrough = this.cancelNewPlaythrough.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.titleId !== this.state.titleId) {
+      this.setState({ titleId: nextProps.titleId });
+    }
+
+    if (!deepEqual(nextProps.slotManager, this.state.slotManager)) {
+      this.setState({ slotManager: nextProps.slotManager });
+    }
+
+    if (nextProps.playthroughsInProgress !== this.state.playthroughsInProgress) {
+      this.setState({ playthroughsInProgress: nextProps.playthroughsInProgress });
+    }
+  }
+
+  startDeletePlaythrough(event) {
+    event.preventDefault();
+    let element = event.target;
+    if (event.target.tagName !== ANCHOR_TAG) {
+      if (event.target.parentElement && event.target.parentElement.tagName === ANCHOR_TAG) {
+        element = event.target.parentElement;
+      }
+    }
+
+    const slotNumber = `slot-${element.getAttribute('data-position')}`;
+    const slotManager = Object.assign({}, this.state.slotManager);
+
+    slotManager[slotNumber].deleting = true;
+    slotManager[slotNumber].deleteConfirmed = false;
+
+    this.setState({ slotManager });
+  }
+
+  deletePlaythrough(event) {
+    event.preventDefault();
+    const slotNumber = `slot-${event.target.getAttribute('data-position')}`;
+        
+    if (this.state.slotManager[slotNumber].deleteConfirmed) {
+      this.props.actions.deletePlaythrough(this.state.slotManager[slotNumber].playthrough.id)
+        .then(() => {});
+    }
+  }
+
+  confirmPlaythroughDelete(event) {
+    const slotManager = Object.assign({}, this.state.slotManager);
+    let slotNumber;
+
+    Object.keys(this.state.slotManager).forEach(key => {
+      if (this.state.slotManager[key].deleting) {
+        slotNumber = key;
+      }
+    });
+
+    if (event.target.value === slotManager[slotNumber].playthrough.name) {
+      slotManager[slotNumber].deleteConfirmed = true;
+      this.setState({ slotManager });
+    }
+  }
+
+  startNewPlaythrough(event) {
+    event.preventDefault();
+    const slotNumber = 'slot-' + event.target.getAttribute('data-position');
+    const slotManager = Object.assign({}, this.state.slotManager);
+
+    slotManager[slotNumber].starting = true;
+    slotManager[slotNumber].newPlaythrough = { name: '', titleId: '', progress: [] };
+
+    this.setState({ slotManager });
+  }
+
+  cancelNewPlaythrough(event) {
+    event.preventDefault();
+    let element = event.target;
+    if (event.target.tagName !== ANCHOR_TAG) {
+      if (event.target.parentElement && event.target.parentElement.tagName === ANCHOR_TAG) {
+        element = event.target.parentElement;
+      }
+    }
+
+    const slotNumber = `slot-${element.getAttribute('data-position')}`;
+    const slotManager = Object.assign({}, this.state.slotManager);
+
+    slotManager[slotNumber].starting = false;
+
+    this.setState({ slotManager });
+  }
+
+  newPlaythrough(event) {
+    const slotManager = Object.assign({}, this.state.slotManager);
+    let slotNumber;
+
+    Object.keys(slotManager).forEach(key => {
+      if (slotManager[key].starting) {
+        slotNumber = key;
+      }
+    });
+
+    let newPlaythrough = slotManager[slotNumber].newPlaythrough;
+    newPlaythrough.name = event.target.value;
+    newPlaythrough.titleId = this.props.titleId;
+
+    this.setState({ slotManager });
+  }
+
+  createNewPlaythrough(event) {
+    event.preventDefault();
+    
+    const slotNumber = `slot-${event.target.getAttribute('data-position')}`;
+    const newPlaythrough = this.state.slotManager[slotNumber].newPlaythrough;
+    this.props.actions.savePlaythrough(newPlaythrough)
+      .then(() => {});
+  }
+
+  renderComponentForSlot(slot) {
+    let component;
+    const position = slot.substr(slot.length-1);
+    
+    if (this.state.slotManager[slot].started) {
+      component = (<Playthrough
+                    playthrough={this.state.slotManager[slot].playthrough}
+                    startDeletePlaythrough={this.startDeletePlaythrough}
+                    position={position} />);
+    } else {
+      component = (<a 
+                    href="#"
+                    onClick={this.startNewPlaythrough}
+                    className="new-playthrough"
+                    data-position={position}>New Playthrough</a>);
+    }
+              
+
+    if (this.state.slotManager[slot].starting) {
+      component = (<PlaythroughForm
+                    changeHandler={this.newPlaythrough} 
+                    submitHandler={this.createNewPlaythrough}
+                    position={position}
+                    cancelHandler={this.cancelNewPlaythrough} />);
+    }
+              
+
+    if (this.state.slotManager[slot].deleting) {
+      component = (<DeletePlaythrough
+                    playthrough={this.state.slotManager[slot].playthrough}
+                    position={position}
+                    deleteHandler={this.deletePlaythrough}
+                    changeHandler={this.confirmPlaythroughDelete}
+                    isValid={this.state.slotManager[slot].deleteConfirmed || false}/>);
+    }
+
+    return component;
+  }
+
+  render() {
+    const playthroughPlurality = this.state.playthroughsInProgress > 1 ? 'Playthroughs' : 'Playthrough'; 
+    
+    return (
+      <div className="container-fluid m4-bottom">
+        <h2 className="playthrough-heading">
+          <span>
+            {this.state.playthroughsInProgress === 0 && 'No Playthroughs Started'}
+            {this.state.playthroughsInProgress > 0 && `${this.state.playthroughsInProgress} ${playthroughPlurality} Started`}
+          </span>
+        </h2>
+
+        <div className="row m5-top">
+          <div className="col-sm-12 col-md-4">
+            {this.renderComponentForSlot('slot-1')}
+          </div>
+
+          <div className="col-sm-12 col-md-4">
+            {this.renderComponentForSlot('slot-2')}
+          </div>
+
+          <div className="col-sm-12 col-md-4">
+            {this.renderComponentForSlot('slot-3')}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+PlaythroughManager.propTypes = {
+  actions: PropTypes.object.isRequired,
+  slotManager: PropTypes.object.isRequired,
+  titleId: PropTypes.string.isRequired,
+  playthroughsInProgress: PropTypes.number.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  const slotManager = {
+    'slot-1': {
+      playthrough: {},
+      starting: false,
+      deleting: false,
+      started: false
+    },
+    'slot-2': {
+      playthrough: {},
+      starting: false,
+      deleting: false,
+      started: false
+    },
+    'slot-3': {
+      playthrough: {},
+      starting: false,
+      deleting: false,
+      started: false
+    }
+  };
+  
+  const playthroughs = state.playthroughs.filter(p => p.titleId === ownProps.titleId);
+  
+  if (playthroughs.length > 0) {
+    playthroughs.map((playthrough, i) => {
+      const slot = slotManager[`slot-${i+1}`];
+      slot.playthrough = playthrough;
+      slot.started = true;
+    });
+  }  
+  
+  return {
+    slotManager,
+    titleId: ownProps.titleId,
+    playthroughsInProgress: playthroughs.length
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(playthroughActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaythroughManager);
