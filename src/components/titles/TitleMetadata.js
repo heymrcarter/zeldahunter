@@ -8,8 +8,8 @@ const TitleMetadata = ({ title }) => {
       <h1>{name}</h1>
       <div className="row">
         <div className="col-sm-12 col-md-9">
-          <p className="m2-top">{description}</p>
-          <p>Released: {releaseDate}</p>
+          <p className="m2-top title-description">{description}</p>
+          <p className="release-date">Released: {releaseDate}</p>
         </div>
 
         <div className="col-sm-12 col-md-3">
