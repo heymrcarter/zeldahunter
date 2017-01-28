@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TitleMetadata from './TitleMetadata';
-import * as playthroughActions from '../../actions/playthrough-actions';
 import deepEqual from 'deep-equal';
-import { bindActionCreators } from 'redux';
 import PlaythroughManager from '../playthroughs/PlaythroughManager';
 
 class TitlePage extends Component {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Alert from '../common/Alert';
 import { Link } from 'react-router';
 

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import initialState from './initial-state';
 
-const { titles, playthroughs, newPlaythrough } = initialState;
+const { titles, playthroughs } = initialState;
 
 describe('initialState', () => {
   describe('titles', () => {

@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import * as actions from '../actions/action-types';
-import playthroughReducer, { startPlaythroughReducer } from './playthrough-reducer';
-import sinon from 'sinon';
+import playthroughReducer from './playthrough-reducer';
 
 describe('playthroughReducer', () => {
   describe('SAVE_PLAYTHROUGH_SUCCESS', () => {
@@ -11,7 +10,7 @@ describe('playthroughReducer', () => {
         id: 1,
         name: 'playthrough',
         progress: []
-      }
+      };
     });
 
     it('adds the new playthrough to state', () => {
