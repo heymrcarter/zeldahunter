@@ -27,6 +27,7 @@ class PlaythroughManager extends Component {
     this.newPlaythrough = this.newPlaythrough.bind(this);
     this.createNewPlaythrough = this.createNewPlaythrough.bind(this);
     this.cancelNewPlaythrough = this.cancelNewPlaythrough.bind(this);
+    this.cancelDelete = this.cancelDelete.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,6 +58,23 @@ class PlaythroughManager extends Component {
 
     slotManager[slotNumber].deleting = true;
     slotManager[slotNumber].deleteConfirmed = false;
+
+    this.setState({ slotManager });
+  }
+
+  cancelDelete(event) {
+    event.preventDefault();
+    let element = event.target;
+    if (event.target.tagName !== ANCHOR_TAG) {
+      if (event.target.parentElement && event.target.parentElement.tagName === ANCHOR_TAG) {
+        element = event.target.parentElement;
+      }
+    }
+
+    const slotNumber = `slot-${element.getAttribute('data-position')}`;
+    const slotManager = Object.assign({}, this.state.slotManager);
+
+    slotManager[slotNumber].deleting = false;
 
     this.setState({ slotManager });
   }
@@ -174,7 +192,8 @@ class PlaythroughManager extends Component {
                     position={position}
                     deleteHandler={this.deletePlaythrough}
                     changeHandler={this.confirmPlaythroughDelete}
-                    isValid={this.state.slotManager[slot].deleteConfirmed || false}/>);
+                    isValid={this.state.slotManager[slot].deleteConfirmed || false}
+                    cancelDelete={this.cancelDelete}/>);
     }
 
     return component;

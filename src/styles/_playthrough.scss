@@ -87,6 +87,7 @@
   background: $red;
   color: #fff;
   padding: 12px;
+  position: relative;
 
   input[type=text] {
     width: 100%;
@@ -113,5 +114,13 @@
       &.valid { color: $medium-green; }
       &.invalid { color: $red; }
     }
+  }
+
+  .cancel-delete {
+    color: #fff;
+    position: absolute;
+    top: 18px;
+    right: 12px;
+    font-size: 18px;
   }
 }
