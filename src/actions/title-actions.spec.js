@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import * as titleActions from './title-actions';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import fetchMock from 'fetch-mock';
 
 describe('titleActions', () => {
   describe('loadTitlesSuccess', () => {
@@ -21,7 +22,17 @@ describe('titleActions', () => {
     let mockStore;
 
     beforeEach(() => {
+      fetchMock.get(process.env.ZH_TITLES_ENDPOINT, [
+        { name: 'title-1' },
+        { name: 'title-2' },
+        { name: 'title-3' }
+      ]);
+      
       mockStore = configureMockStore([thunk]);
+    });
+
+    afterEach(() => {
+      fetchMock.restore();
     });
 
     it('dispatches a LOAD_TITLES_SUCCESS action', (done) => {

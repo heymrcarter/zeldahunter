@@ -2,3 +2,4 @@ node_modules/
 .idea/
 .fixpath.sh.swp
 .vscode/
+.env

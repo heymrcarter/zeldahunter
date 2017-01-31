@@ -9,7 +9,7 @@
     "yarn": ">=0.17"
   },
   "scripts": {
-    "setup": "node tools/setup/setupMessage.js && yarn install && node tools/setup/setup.js",
+    "setup": "node tools/setup/setupMessage.js && npm install && node tools/setup/setup.js",
     "remove-demo": "babel-node tools/removeDemo.js",
     "start-message": "babel-node tools/start-message.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
@@ -33,6 +33,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "deep-equal": "^1.0.1",
+    "dotenv": "^4.0.0",
     "jquery": "^3.1.1",
     "localStorage": "^1.0.3",
     "object-assign": "4.1.0",
@@ -68,6 +69,7 @@
     "coveralls": "2.11.14",
     "cross-env": "3.1.3",
     "css-loader": "0.25.0",
+    "dotenv-webpack": "^1.3.2",
     "enzyme": "^2.7.1",
     "eslint": "3.8.1",
     "eslint-plugin-import": "2.0.1",
@@ -75,6 +77,7 @@
     "eslint-plugin-react": "6.4.1",
     "eslint-watch": "2.1.14",
     "extract-text-webpack-plugin": "1.0.1",
+    "fetch-mock": "^5.9.3",
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.24.0",
     "isparta": "4.0.0",

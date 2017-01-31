@@ -11,6 +11,8 @@
 // and propType validation warnings.
 process.env.NODE_ENV = 'test';
 
+require('dotenv').config();
+
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
 ['.css', '.scss', '.png', '.jpg'].forEach(ext => {
