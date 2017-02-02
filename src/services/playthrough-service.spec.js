@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import PlaythroughService from './playthrough-service';
+import PlaythroughService, { generateId } from './playthrough-service';
 
 describe('playthroughService', () => {
   let mockStore;
@@ -266,6 +266,30 @@ describe('playthroughService', () => {
           expect(deletedPlaythrough).to.deep.equal(playthroughToDelete);
           done();
         });
+    });
+  });
+
+  describe('generateId', () => {
+    it('returns a number', () => {
+      const actual = generateId();
+      expect(actual).to.be.a('number');
+    });
+
+    it('expects to be passed an array', () => {
+      const fn = () => {};
+      const obj = {};
+      expect(generateId([])).to.equal(1);
+      expect(generateId('a string')).to.be.an.instanceof(TypeError);
+      expect(generateId(1)).to.be.an.instanceof(TypeError);
+      expect(generateId(obj)).to.be.an.instanceof(TypeError);
+      expect(generateId(fn)).to.be.an.instanceof(TypeError);
+      expect(generateId(Date.now())).to.be.an.instanceof(TypeError);
+    });
+
+    it('returns 1 plus the length of the input array', () => {
+      expect(generateId([])).to.equal(1);
+      expect(generateId([1, 2])).to.equal(3);
+      expect(generateId([1,2,3,4,5,6,7,8,9])).to.equal(10);
     });
   });
 });

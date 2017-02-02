@@ -9,7 +9,11 @@ if (process.env.NODE_ENV === 'test') {
 
 const PLAYTHROUGH_KEY = 'zeldahunter:playthroughs';
 
-function generateId(playthroughs = []) {
+export function generateId(playthroughs = []) {
+  if (!(playthroughs instanceof Array)) {
+    return new TypeError('playthroughs is not an Array');
+  }
+  
   return playthroughs.length + 1;
 }
 

@@ -1,4 +1,5 @@
 export default {
   titles: [],
-  playthroughs: []
+  playthroughs: [],
+  progress: []
 };

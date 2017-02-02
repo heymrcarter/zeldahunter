@@ -13,10 +13,12 @@ import '../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 import './styles/styles.scss';
 import { loadTitles } from './actions/title-actions';
 import { loadPlaythroughs } from './actions/playthrough-actions';
+import { loadProgress } from './actions/progress-actions';
 
 const store = configureStore();
 store.dispatch(loadTitles());
 store.dispatch(loadPlaythroughs());
+store.dispatch(loadProgress());
 
 const history = syncHistoryWithStore(browserHistory, store);
 

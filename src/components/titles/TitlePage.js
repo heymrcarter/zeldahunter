@@ -18,15 +18,22 @@ class TitlePage extends Component {
   }  
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.title.id != this.state.title.id) {
-      this.setState({ title: Object.assign({}, nextProps.title) });
+    let newTitle = false;
+    if (nextProps.title.id !== this.state.title.id) {
+      this.newTitle = true;
+      this.setState({ title: nextProps.title });
     }
     
     if (!deepEqual(this.state.playthroughs, nextProps.playthroughs)) {
-      const newState = Object.assign({}, this.state, {
+      const newState = {
         playthroughs: Object.assign([], [...nextProps.playthroughs]),
         miniMetadata: nextProps.playthroughs.length > 0
-      });
+      };
+
+      if (newTitle) {
+        newState.title = nextProps.title;
+      }
+      
       this.setState(newState);
     }
   }
