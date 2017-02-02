@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as playthroughActions from '../../actions/playthrough-actions';
 import deepEqual from 'deep-equal';
 import { bindActionCreators } from 'redux';
-import Playthrough from './Playthough';
+import Playthrough from './Playthrough';
 import DeletePlaythrough from './DeletePlaythrough';
 import PlaythroughForm from './PlaythroughForm';
 import * as progressActions from '../../actions/progress-actions';
@@ -175,10 +175,12 @@ class PlaythroughManager extends Component {
     const position = slot.substr(slot.length-1);
     
     if (this.state.slotManager[slot].started) {
+      const progressUrl = `/titles/${this.state.titleId}/${this.state.slotManager[slot].playthrough.id}`;
       component = (<Playthrough
                     playthrough={this.state.slotManager[slot].playthrough}
                     startDeletePlaythrough={this.startDeletePlaythrough}
-                    position={position} />);
+                    position={position}
+                    progressUrl={progressUrl} />);
     } else {
       component = (<a 
                     href="#"

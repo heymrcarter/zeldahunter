@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
+
 
 function formatDate(timeInMilliseconds) {
   const date = new Date(timeInMilliseconds);
@@ -9,10 +11,12 @@ function formatDate(timeInMilliseconds) {
   return `${month}/${day}/${year}`;
 }
 
-const Playthrough = ({ playthrough, startDeletePlaythrough, position }) => {
+const Playthrough = ({ playthrough, startDeletePlaythrough, position, progressUrl }) => {
   return (
     <div className="playthrough">
-      <h3 className="playthrough-name">{playthrough.name}</h3>
+      <h3 className="playthrough-name">
+        <Link to={progressUrl}>{playthrough.name}</Link>
+      </h3>
       <div className="playthrough-body">
         Last save: {formatDate(playthrough.lastUpdated)}
       </div>
@@ -36,7 +40,8 @@ const Playthrough = ({ playthrough, startDeletePlaythrough, position }) => {
 Playthrough.propTypes = {
   playthrough: PropTypes.object.isRequired,
   startDeletePlaythrough: PropTypes.func.isRequired,
-  position: PropTypes.string.isRequired
+  position: PropTypes.string.isRequired,
+  progressUrl: PropTypes.string.isRequired
 };
 
 export default Playthrough;

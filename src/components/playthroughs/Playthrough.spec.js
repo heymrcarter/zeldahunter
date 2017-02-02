@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
-import { shallow } from 'enzyme';
-import Playthrough from './Playthough';
+import { mount } from 'enzyme';
+import Playthrough from './Playthrough';
 import sinon from 'sinon';
 
 function setup(userProps) {
@@ -11,12 +11,13 @@ function setup(userProps) {
       lastUpdated: Date.now()
     },
     startDeletePlaythrough: () => {},
-    position: "1"
+    position: "1",
+    progressUrl: 'the-url'
   };
 
   const props = Object.assign({}, defaultProps, userProps);
 
-  return shallow(<Playthrough {...props} />);
+  return mount(<Playthrough {...props} />);
 }
 
 describe('Playthrough', () => {

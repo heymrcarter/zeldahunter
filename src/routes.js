@@ -11,5 +11,6 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="/titles" component={TitlesPage} />
     <Route path="/titles/:titleId" component={TitlePage} />
+    <Route path="/titles/:titleId/:playthroughId" component={TitlePage} />
   </Route>
 );
