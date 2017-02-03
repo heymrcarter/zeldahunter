@@ -31,6 +31,7 @@
   },
   "author": "Tom Carter",
   "dependencies": {
+    "babel-plugin-rewire": "^1.0.0",
     "bootstrap": "^3.3.7",
     "deep-equal": "^1.0.1",
     "dotenv": "^4.0.0",

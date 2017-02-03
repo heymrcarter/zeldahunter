@@ -1,6 +1,6 @@
 import * as validator from '../validators/playthrough-validator';
 import MockLocalStorage from '../services/mock-localstorage';
-
+import { generateId } from '../utils/id-generator';
 let storage = window.localStorage;
 
 if (process.env.NODE_ENV === 'test') {
@@ -8,14 +8,6 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const PLAYTHROUGH_KEY = 'zeldahunter:playthroughs';
-
-export function generateId(playthroughs = []) {
-  if (!(playthroughs instanceof Array)) {
-    return new TypeError('playthroughs is not an Array');
-  }
-  
-  return playthroughs.length + 1;
-}
 
 export default class PlaythroughService {
   constructor(store = storage, playthroughValidator = validator) {
@@ -65,8 +57,6 @@ export default class PlaythroughService {
     playthrough = Object.assign({}, playthrough, { lastUpdated: Date.now() });
     
     return new Promise((resolve, reject) => {
-      playthrough.id = generateId(playthroughs);
-      
       if (this.validator.validate(playthrough)) {
         playthroughs.push(playthrough);
 

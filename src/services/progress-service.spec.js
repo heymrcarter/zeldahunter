@@ -72,7 +72,7 @@ describe('ProgressService', () => {
 
     it('creates a new progress object', (done) => {
       const expected = {
-        id: 'progress-1',
+        id: 1,
         titleId: 'the-title',
         playthroughId: 'the-playthrough',
         collectables
@@ -88,7 +88,7 @@ describe('ProgressService', () => {
     it('adds the new progress object to localstorage', (done) => {
       const setItemSpy = sinon.spy(mockStore, 'setItem');
       const expected = JSON.stringify([{
-        id: 'progress-1',
+        id: 1,
         titleId: 'the-title',
         playthroughId: 'the-playthrough',
         collectables

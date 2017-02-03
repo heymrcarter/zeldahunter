@@ -1,4 +1,6 @@
 import MockLocalStorage from '../services/mock-localstorage';
+import extractIds from '../utils/id-extractor';
+import { generateId } from '../utils/id-generator';
 
 let storage = window.localStorage;
 
@@ -37,12 +39,13 @@ class ProgressService {
 
       const endpoint = `${process.env.ZH_PROGRESS_ENDPOINT}/${titleId}`;
       const progress = JSON.parse(this.store.getItem(PROGRESS_KEY));
+      const progressIds = extractIds(progress);
       
       fetch(endpoint, {Accept: 'application/json'})   
         .then(res => res.json())
         .then(json => {
           const newProgress = {
-            id: `progress-${progress.length + 1}`,
+            id: generateId(progressIds),
             titleId,
             playthroughId,
             collectables: json

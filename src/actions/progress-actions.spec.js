@@ -69,7 +69,7 @@ describe('progressActions', () => {
 
     it('dispatches a CREATE_PROGRESS_SUCCESS action', (done) => {
       const progress = {
-        id: 'progress-1',
+        id: 1,
         titleId: 'title-id',
         playthroughId: 'playthrough-id',
         collectables: { bottles: [] }

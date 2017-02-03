@@ -7,7 +7,8 @@ import Playthrough from './Playthrough';
 import DeletePlaythrough from './DeletePlaythrough';
 import PlaythroughForm from './PlaythroughForm';
 import * as progressActions from '../../actions/progress-actions';
-import { generateId } from '../../services/playthrough-service';
+import { generateId } from '../../utils/id-generator';
+import extractIds from '../../utils/id-extractor';
 
 const ANCHOR_TAG = 'A';
 
@@ -19,7 +20,8 @@ class PlaythroughManager extends Component {
       titleId: props.titleId,
       slotManager: props.slotManager,
       playthroughsInProgress: props.playthroughsInProgress,
-      numTotalPlaythroughs: props.numTotalPlaythroughs
+      numTotalPlaythroughs: props.numTotalPlaythroughs,
+      allPlaythroughs: props.allPlaythroughs
     };
 
     this.renderComponentForSlot = this.renderComponentForSlot.bind(this);
@@ -48,6 +50,10 @@ class PlaythroughManager extends Component {
 
     if (nextProps.numTotalPlaythroughs !== this.state.numTotalPlaythroughs) {
       this.setState({ numTotalPlaythroughs: nextProps.numTotalPlaythroughs });
+    }
+
+    if (!deepEqual(nextProps.allPlaythroughs, this.state.allPlaythroughs)) {
+      this.setState({ allPlaythroughs: nextProps.allPlaythroughs });
     }
   }
 
@@ -151,7 +157,7 @@ class PlaythroughManager extends Component {
     });
 
     let newPlaythrough = slotManager[slotNumber].newPlaythrough;
-    newPlaythrough.id = this.state.numTotalPlaythroughs++;
+
     newPlaythrough.name = event.target.value;
     newPlaythrough.titleId = this.props.titleId;
 
@@ -163,6 +169,10 @@ class PlaythroughManager extends Component {
     
     const slotNumber = `slot-${event.target.getAttribute('data-position')}`;
     const newPlaythrough = this.state.slotManager[slotNumber].newPlaythrough;
+    const playthroughIds = extractIds(this.state.allPlaythroughs);
+    
+    newPlaythrough.id = generateId(playthroughIds);
+
     this.props.actions.savePlaythrough(newPlaythrough)
       .then(() => {
         this.props.actions.createProgress(this.props.titleId, newPlaythrough.id)
@@ -247,7 +257,8 @@ PlaythroughManager.propTypes = {
   slotManager: PropTypes.object.isRequired,
   titleId: PropTypes.string.isRequired,
   playthroughsInProgress: PropTypes.number.isRequired,
-  numTotalPlaythroughs: PropTypes.number.isRequired
+  numTotalPlaythroughs: PropTypes.number.isRequired,
+  allPlaythroughs: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -286,7 +297,8 @@ function mapStateToProps(state, ownProps) {
     slotManager,
     titleId: ownProps.titleId,
     playthroughsInProgress: playthroughs.length,
-    numTotalPlaythroughs: state.playthroughs.length
+    numTotalPlaythroughs: state.playthroughs.length,
+    allPlaythroughs: state.playthroughs
   };
 }
 
