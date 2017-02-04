@@ -1,6 +1,5 @@
 import * as validator from '../validators/playthrough-validator';
 import MockLocalStorage from '../services/mock-localstorage';
-import { generateId } from '../utils/id-generator';
 let storage = window.localStorage;
 
 if (process.env.NODE_ENV === 'test') {

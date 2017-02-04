@@ -63,6 +63,6 @@ function mapStateToProps(state, ownProps) {
     title,
     playthrough
   };
-};
+}
 
 export default connect(mapStateToProps)(PlaythroughPage);

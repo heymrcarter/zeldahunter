@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import PlaythroughService, { generateId } from './playthrough-service';
+import PlaythroughService from './playthrough-service';
 
 describe('playthroughService', () => {
   let mockStore;

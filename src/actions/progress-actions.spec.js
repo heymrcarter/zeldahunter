@@ -85,7 +85,7 @@ describe('progressActions', () => {
       store.dispatch(progressActions.createProgress('title-id', 'playthrough-id'))
         .then(() => {
           const actions = store.getActions();
-          expect(actions[0]).to.deep.equal(expectedAction)
+          expect(actions[0]).to.deep.equal(expectedAction);
           done();
         });
     });
