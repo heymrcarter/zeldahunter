@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import PlaythroughHeader from './PlaythroughHeader';
 import dateFormatter from '../../utils/date-formatter';
+import toQuickview from '../../utils/quickview-factory';
 
 class PlaythroughPage extends Component {
   constructor(props, context) {
@@ -10,7 +11,8 @@ class PlaythroughPage extends Component {
     this.state = {
       progress: props.progress,
       title: props.title,
-      playthrough: props.playthrough
+      playthrough: props.playthrough,
+      quickview: toQuickview(props.progress.collectables)
     };
   }
 
@@ -21,6 +23,7 @@ class PlaythroughPage extends Component {
 
     if (nextProps.progress.id !== this.state.progress.id) {
       this.setState({ progress: nextProps.progress });
+      this.setState({ quickview: toQuickview(nextProps.progress.collectables )});
     }
 
     if (nextProps.title.id !== this.state.title.id) {
@@ -36,7 +39,8 @@ class PlaythroughPage extends Component {
         <PlaythroughHeader
           titleName={this.state.title.name}
           playthroughName={this.state.playthrough.name}
-          lastUpdated={formattedDate} />
+          lastUpdated={formattedDate}
+          quickviewModel={this.state.quickview} />
       </div>
     );
   }

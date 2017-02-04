@@ -129,11 +129,11 @@
 }
 
 .playthrough-header {
-  border: 1px solid $dark-green;
+  border: 1px solid $grey;
   background-color: #fff;
   
   .title-name {
-    background-color: $dark-green;
+    background-color: $grey;
     color: #fff;
     padding: 7px;
     font-weight: 300;
@@ -141,22 +141,32 @@
     text-transform: uppercase;
   }
 
-  h1 {
-    color: $grey;
-  }
+  h1 { color: $grey; }
 
-  .last-updated {
-    font-size: 16px;
-  }
+  .last-updated { font-size: 16px; }
 
-  .row {
-    display: table;
-    width: calc(100% - 40px);
-  }
+  .playthrough-overview { padding: 10px 10px; }
 
-  [class*=col-] {
-    float: none;
-    display: table-cell;
-    vertical-align: middle;
+  .quickview {
+   list-style: none;
+   padding-left: 0;
+   margin-bottom: 0;
+
+    .quickview-glance {
+      color: #fff;
+      background-color: $medium-green;
+      padding: 7px;
+
+      .glance-collectable { font-size: 16px; }
+
+      .percentage {
+        display: block;
+        font-size: 24px;
+      }
+
+      .glance-completion-label {
+        font-size: 12px;
+      }
+    }
   }
 }
