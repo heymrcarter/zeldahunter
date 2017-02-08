@@ -1,6 +1,6 @@
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import PlaythroughHeader from './PlaythroughHeader';
 
 function setup() {
@@ -11,7 +11,7 @@ function setup() {
     quickviewModel: []
   };
 
-  return shallow(<PlaythroughHeader {...defaultProps} />);
+  return mount(<PlaythroughHeader {...defaultProps} />);
 }
 
 describe('PlaythroughHeader', () => {
@@ -22,7 +22,7 @@ describe('PlaythroughHeader', () => {
 
   it('renders the title name', () => {
     const wrapper = setup();
-    expect(wrapper.find('.title-name').text()).to.equal('the-title');
+    expect(wrapper.find('.title-name a').text()).to.equal('the-title');
   });
 
   it('renders the last updated date', () => {

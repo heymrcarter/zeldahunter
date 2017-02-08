@@ -46,6 +46,7 @@ describe('ProgressService', () => {
   describe('startProgressForTitle', () => {
     let collectables;
     let mockStore;
+
     beforeEach(() => {
       collectables = {
         bottles: []
@@ -117,6 +118,56 @@ describe('ProgressService', () => {
           expect(error.message).to.equal('Invalid playthroughId');
           done();
         });
+    });
+  });
+
+  describe('deleteProgress', () => {
+    let mockStore;
+    let progress;
+    let setItemSpy;
+
+    beforeEach(() => {
+      progress = [
+        { id: '1', titleId: 'the-title', playthroughId: 'the-playthrough' },
+        { id: '2', titleId: 'the-title', playthroughId: 'the-playthrough2' },
+        { id: '3', titleId: 'the-title2', playthroughId: 'the-playthrough3' }
+      ];
+      
+      mockStore = {
+        getItem: () => {
+          return JSON.stringify(progress);
+        },
+        setItem: () => {
+          return;
+        }
+      };
+
+      setItemSpy = sinon.spy(mockStore, 'setItem');
+
+      progressService = new ProgressService(mockStore);
+    });
+
+    it('removes the progress to be deleted from storage', (done) => {
+      progressService.deleteProgress('the-title', 'the-playthrough')
+        .then(() => {
+          expect(setItemSpy.calledOnce).to.equal(true);
+          done();
+        });
+    });
+
+    it('returns the deleted progress', (done) => {
+      const expected = {
+        id: '1',
+        titleId: 'the-title',
+        playthroughId: 'the-playthrough'
+      };
+
+      progressService.deleteProgress('the-title', 'the-playthrough')
+        .then(deletedProgress => {
+          expect(deletedProgress).to.deep.equal(expected);
+          done();
+        })
+        .catch(error => done(error));
     });
   });
 });

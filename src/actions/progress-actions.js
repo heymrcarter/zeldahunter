@@ -24,3 +24,14 @@ export function createProgress(titleId, playthroughId) {
       .then(progress => dispatch(createProgressSuccess(progress)));
   };
 }
+
+export function deleteProgressSuccess(progress = {}) {
+  return { type: actions.DELETE_PROGRESS_SUCCESS, progress };
+}
+
+export function deleteProgress(titleId, playthroughId) {
+  return dispatch => {
+    return progressService.deleteProgress(titleId, playthroughId)
+      .then(deletedPlaythrough => dispatch(deleteProgressSuccess(deletedPlaythrough)));
+  };
+}

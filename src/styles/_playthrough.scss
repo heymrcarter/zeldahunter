@@ -133,12 +133,21 @@
   background-color: #fff;
   
   .title-name {
-    background-color: $grey;
-    color: #fff;
+    background-color: $grey;    
     padding: 7px;
     font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
+    
+    a {
+      color: #fff;
+      cursor: pointer;
+
+      span {
+        font-size: 12px;
+        margin-right: 3px;
+      }
+    }
   }
 
   h1 { color: $grey; }

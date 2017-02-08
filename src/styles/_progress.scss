@@ -1,0 +1,50 @@
+@import 'colors';
+
+.progress-overview {
+  .collectable {
+    border: 1px solid $medium-green;
+    background-color: #fff;
+    min-height: 161px;
+
+    .collectable-name {
+      padding: 7px;
+      font-size: 16px;
+      text-transform: uppercase;
+      background-color: $medium-green;
+      letter-spacing: 2px;
+      font-weight: 300;
+
+      a {
+        color: #fff;
+
+        .glyphicon {
+          font-size: 12px;
+          top: 0;
+        }
+      }
+    }
+
+    .collectable-progress {
+      list-style: none;
+      margin: 0;
+      padding: 7px;
+      font-size: 16px;
+
+      li {
+        margin-bottom: 7px;
+
+        &:last-child { margin-bottom: 0; }
+
+        .glyphicon {
+          color: $medium-green;
+          top: 2px;
+          display: inline-block;
+
+          &.glyphicon-remove { color: $red; }
+        }
+
+        span { margin-right: 7px; }
+      }      
+    }
+  }
+}

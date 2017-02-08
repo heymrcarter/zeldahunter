@@ -60,6 +60,19 @@ class ProgressService {
         .catch(error => reject(error));
     });
   }
+
+  deleteProgress(titleId, playthroughId) {
+    return new Promise(resolve => {
+      const progress = JSON.parse(this.store.getItem(PROGRESS_KEY));
+      const newProgress = progress.filter(p => p.titleId !== titleId && p.playthroughId !== playthroughId);
+
+      this.store.setItem(PROGRESS_KEY, JSON.stringify(newProgress));
+
+      const deletedProgress = progress.filter(p => p.titleId === titleId && p.playthroughId === playthroughId)[0];
+
+      resolve(deletedProgress);
+    });
+  }
 }
 
 export default ProgressService;

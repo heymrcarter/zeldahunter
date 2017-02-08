@@ -1,9 +1,16 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
-const PlaythroughHeader = ({ titleName, playthroughName, lastUpdated, quickviewModel }) => {
+const PlaythroughHeader = ({ title, playthroughName, lastUpdated, quickviewModel }) => {
+  let backLink = `/titles/${title.id}`;
+
   return (
     <div className="playthrough-header">
-      <div className="title-name">{titleName}</div>
+      <div className="title-name">
+        <Link to={backLink}>
+          <span className="glyphicon glyphicon-menu-left" aria-hidden="true" />{title.name}
+        </Link>
+      </div>
 
       <div className="row playthrough-overview">
         <div className="col-sm-12 col-md-4">
@@ -16,7 +23,7 @@ const PlaythroughHeader = ({ titleName, playthroughName, lastUpdated, quickviewM
             {
               quickviewModel.map((quickviewItem, key) => {
                 return (
-                  <li key={key} className="col-sm-3">
+                  <li key={key} className="col-sm-3 m3-bottom">
                     <div className="quickview-glance">
                       <span className="glance-collectable">{quickviewItem.name}</span>
                       <div className="glance-completion-percentage">
@@ -38,7 +45,7 @@ const PlaythroughHeader = ({ titleName, playthroughName, lastUpdated, quickviewM
 };
 
 PlaythroughHeader.propTypes = {
-  titleName: PropTypes.string.isRequired,
+  title: PropTypes.object.isRequired,
   playthroughName: PropTypes.string.isRequired,
   lastUpdated: PropTypes.string.isRequired,
   quickviewModel: PropTypes.array.isRequired

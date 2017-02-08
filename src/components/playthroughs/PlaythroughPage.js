@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PlaythroughHeader from './PlaythroughHeader';
 import dateFormatter from '../../utils/date-formatter';
 import toQuickview from '../../utils/quickview-factory';
+import toProgressOverview from '../../utils/progress-overview-factory';
+import ProgressOverview from '../progress/ProgressOverview';
 
 class PlaythroughPage extends Component {
   constructor(props, context) {
@@ -37,10 +39,13 @@ class PlaythroughPage extends Component {
     return (
       <div>
         <PlaythroughHeader
-          titleName={this.state.title.name}
+          title={this.state.title}
           playthroughName={this.state.playthrough.name}
           lastUpdated={formattedDate}
           quickviewModel={this.state.quickview} />
+
+        <ProgressOverview
+          progress={toProgressOverview(this.state.progress.collectables)} />
       </div>
     );
   }

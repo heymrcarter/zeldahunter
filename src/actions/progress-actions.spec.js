@@ -90,4 +90,46 @@ describe('progressActions', () => {
         });
     });
   });
+
+  describe('deleteProgressSuccess', () => {
+    it('returns a DELETE_PROGRESS_SUCCESS action', () => {
+      const progress = { id: 1, titleId: 'the-title', playthroughId: 'the-playthrough' };
+      const actual = progressActions.deleteProgressSuccess(progress);
+
+      expect(actual.progress).to.equal(progress);
+      expect(actual.type).to.equal('DELETE_PROGRESS_SUCCESS');
+    });
+  });
+
+  describe('deleteProgress', () => {
+    let mockStore;
+
+    beforeEach(() => {
+      const middleware = [thunk];
+      mockStore = configureMockStore(middleware);
+    });
+    
+    it('dispatches a DELETE_PROGRESS_SUCCESS action', (done) => {
+      const progress = {
+        id: 1,
+        titleId: 'title-id',
+        playthroughId: 'playthrough-id',
+        collectables: {
+          bottles: []
+        }        
+      };
+
+      const expectedAction = { type: 'DELETE_PROGRESS_SUCCESS', progress };
+
+      const store = mockStore({});
+
+      store.dispatch(progressActions.deleteProgress('title-id', 'playthrough-id'))
+        .then(() => {
+          const actions = store.getActions();
+          expect(actions[0]).to.deep.equal(expectedAction);
+          done();
+        })
+        .catch(error => done(error));
+    });
+  });
 });

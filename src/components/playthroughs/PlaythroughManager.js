@@ -97,8 +97,12 @@ class PlaythroughManager extends Component {
     const slotNumber = `slot-${event.target.getAttribute('data-position')}`;
         
     if (this.state.slotManager[slotNumber].deleteConfirmed) {
-      this.props.actions.deletePlaythrough(this.state.slotManager[slotNumber].playthrough.id)
-        .then(() => {});
+      const playthroughId = this.state.slotManager[slotNumber].playthrough.id;
+      this.props.actions.deletePlaythrough(playthroughId)
+        .then(() => {
+          this.props.actions.deleteProgress(playthroughId, this.state.titleId)
+            .then(() => {});
+        });
     }
   }
 

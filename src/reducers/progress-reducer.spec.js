@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import progressReducer from './progress-reducer';
-import { LOAD_PROGRESS_SUCCESS, CREATE_PROGRESS_SUCCESS } from '../actions/action-types';
+import { LOAD_PROGRESS_SUCCESS, CREATE_PROGRESS_SUCCESS, DELETE_PLAYTHROUGH_SUCCESS } from '../actions/action-types';
 
 describe('progressReducer', () => {
   describe('LOAD_PROGRESS_SUCCESS', () => {
@@ -19,7 +19,7 @@ describe('progressReducer', () => {
   });
 
   describe('CREATE_PROGRESS_SUCCESS', () => {
-    it('returns the newly created progress', () => {
+    it('adds the new progress to state', () => {
       const progress = {
         id: 'progress-1',
         titleId: 'title-id',
@@ -34,7 +34,26 @@ describe('progressReducer', () => {
 
       const actual = progressReducer([], action);
 
-      expect(actual).to.deep.equal(progress);
+      expect(actual).to.deep.equal([progress]);
+    });
+  });
+
+  describe('DELETE_PLAYTHROUGH_SUCCESS', () => {
+    it('returns the progress without the deleted progress', () => {
+      const progress = [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 }
+      ];
+
+      const action = {
+        type: DELETE_PLAYTHROUGH_SUCCESS,
+        progress: { id: 1 }
+      };
+
+      const actual = progressReducer(progress, action);
+
+      expect(actual).to.deep.equal(progress.filter(p => p.id !== 1));
     });
   });
 
