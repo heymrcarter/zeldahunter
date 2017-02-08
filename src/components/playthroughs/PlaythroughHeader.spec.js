@@ -5,7 +5,7 @@ import PlaythroughHeader from './PlaythroughHeader';
 
 function setup() {
   const defaultProps = {
-    titleName: 'the-title',
+    title: { id: 'the-title', name: 'the-title' },
     lastUpdated: 'last-updated',
     playthroughName: 'the-playthrough',
     quickviewModel: []
@@ -30,7 +30,7 @@ describe('PlaythroughHeader', () => {
     expect(wrapper.find('.last-updated').text()).to.equal('Last save: last-updated');
   });
 
-  it('renders the quick-view bar', () => {
+  it('renders the quickview bar', () => {
     const wrapper = setup();
     expect(wrapper.find('.quickview').length).to.equal(1);
   });

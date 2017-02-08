@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import Quickview from '../progress/Quickview';
 
 const PlaythroughHeader = ({ title, playthroughName, lastUpdated, quickviewModel }) => {
   let backLink = `/titles/${title.id}`;
@@ -19,25 +20,7 @@ const PlaythroughHeader = ({ title, playthroughName, lastUpdated, quickviewModel
         </div>
 
         <div className="col-sm-12 col-md-8">
-          <ul className="quickview row">
-            {
-              quickviewModel.map((quickviewItem, key) => {
-                return (
-                  <li key={key} className="col-sm-3 m3-bottom">
-                    <div className="quickview-glance">
-                      <span className="glance-collectable">{quickviewItem.name}</span>
-                      <div className="glance-completion-percentage">
-                        <span className="percentage">
-                          {(quickviewItem.found / quickviewItem.total) * 100 || 0}%
-                        </span>
-                        <span className="glance-completion-label">Complete</span>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })
-            }
-          </ul>
+          <Quickview quickviewModel={quickviewModel} />
         </div>
       </div>      
     </div>
