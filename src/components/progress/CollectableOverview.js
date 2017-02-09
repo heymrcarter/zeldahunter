@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 
-const CollectableOverview = ({ collectable }) => {
+const CollectableOverview = ({ collectable, progressUrl }) => {
   return (
     <div className="collectable">
       <div className="collectable-name">
-        <Link to="">
-          {collectable.name}<span className="glyphicon glyphicon-menu-right"/>
-        </Link>
+        {collectable.name}
       </div>
 
       <ul className="collectable-progress">
@@ -35,7 +32,8 @@ const CollectableOverview = ({ collectable }) => {
 };
 
 CollectableOverview.propTypes = {
-  collectable: PropTypes.object.isRequired
+  collectable: PropTypes.object.isRequired,
+  progressUrl: PropTypes.string.isRequired
 };
 
 export default CollectableOverview;

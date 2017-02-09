@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import CollectableOverview from './CollectableOverview';
 
-const ProgressOverview = ({ progress }) => {
+const ProgressOverview = ({ progress, progressUrl }) => {
   return (
     <div className="progress-overview row m3-top">
       {
         progress.map((collectable, i) => {
           return (
-            <div key={i} className="m3-bottom col-sm-12 col-md-3">
-              <CollectableOverview collectable={collectable} />
+            <div key={i} className="m2-bottom col-sm-12">
+              <CollectableOverview collectable={collectable} progressUrl={progressUrl} />
             </div>
           );
         })
@@ -18,7 +18,8 @@ const ProgressOverview = ({ progress }) => {
 };
 
 ProgressOverview.propTypes = {
-  progress: PropTypes.array.isRequired
+  progress: PropTypes.array.isRequired,
+  progressUrl: PropTypes.string.isRequired
 };
 
 export default ProgressOverview;

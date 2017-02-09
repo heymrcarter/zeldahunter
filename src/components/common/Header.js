@@ -2,9 +2,16 @@ import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import TitleList from '../titles/TitleList';
 
-const Header = ({ titles }) => {
+const Header = ({ titles, currentTitleId = '' }) => {
+  let dropdownText = 'Titles';
+  const title = titles.filter(t => t.id === currentTitleId)[0];
+  
+  if (title && title.name) {
+    dropdownText = title.name;
+  }
+  
   return (
-    <nav className="navbar navbar-inverse">
+    <nav className="navbar navbar-inverse navbar-fixed-top">
       <div className="container-fluid">
         <div className="navbar-header">
           <button
@@ -34,7 +41,7 @@ const Header = ({ titles }) => {
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="false">
-                Titles <span className="caret" />
+                {dropdownText} <span className="caret" />
               </Link>
 
               <TitleList titles={titles} css="dropdown-menu" />
@@ -47,7 +54,8 @@ const Header = ({ titles }) => {
 };
 
 Header.propTypes = {
-  titles: PropTypes.array.isRequired
+  titles: PropTypes.array.isRequired,
+  currentTitleId: PropTypes.string.isRequired
 };
 
 export default Header;

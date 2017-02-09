@@ -7,13 +7,24 @@ import * as titleActions from '../actions/title-actions';
 class App extends Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      titles: props.titles,
+      currentTitleId: props.currentTitleId
+    };
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.currentTitleId !== this.state.currentTitleId) {
+      this.setState({ currentTitleId: nextProps.currentTitleId });
+    }
   }
 
   render() {
     return (
       <div>
-        <Header titles={this.props.titles} />
-        <main className="container-fluid">
+        <Header titles={this.props.titles} currentTitleId={this.state.currentTitleId} />
+        <main className="container-fluid p4-top">
           {this.props.children}
         </main>
       </div>
@@ -24,12 +35,14 @@ class App extends Component {
 App.propTypes = {
   children: PropTypes.element,
   titles: PropTypes.array.isRequired,
-  actions: PropTypes.object
+  actions: PropTypes.object,
+  currentTitleId: PropTypes.string.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
-    titles: state.titles
+    titles: state.titles,
+    currentTitleId: ownProps.params.titleId
   };
 }
 

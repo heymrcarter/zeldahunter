@@ -20,18 +20,8 @@ describe('PlaythroughHeader', () => {
     expect(wrapper.find('h1').text()).to.equal('the-playthrough');
   });
 
-  it('renders the title name', () => {
-    const wrapper = setup();
-    expect(wrapper.find('.title-name a').text()).to.equal('the-title');
-  });
-
   it('renders the last updated date', () => {
     const wrapper = setup();
     expect(wrapper.find('.last-updated').text()).to.equal('Last save: last-updated');
-  });
-
-  it('renders the quickview bar', () => {
-    const wrapper = setup();
-    expect(wrapper.find('.quickview').length).to.equal(1);
   });
 });

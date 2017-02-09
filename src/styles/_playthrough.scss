@@ -128,54 +128,26 @@
   }
 }
 
-.playthrough-header {
-  border: 1px solid $grey;
-  background-color: #fff;
-  
-  .title-name {
-    background-color: $grey;    
-    padding: 7px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    
-    a {
-      color: #fff;
-      cursor: pointer;
-
-      span {
-        font-size: 12px;
-        margin-right: 3px;
-      }
-    }
+.playthrough-progress {
+  .left-rail {
+    height: 100vh;
+    background-color: $grey;
+    position: fixed;
+    width: calc(25% - 20px; );
   }
 
-  h1 { color: $grey; }
+  [class^='col-'] {
+    padding-left: 0;
+    position: relative;
+  }
+}
 
+.playthrough-header {
+  color: #fff;
+  padding: 0 15px;
+  margin-bottom: 20px;
+  
   .last-updated { font-size: 16px; }
 
   .playthrough-overview { padding: 10px 10px; }
-
-  .quickview {
-   list-style: none;
-   padding-left: 0;
-   margin-bottom: 0;
-
-    .quickview-glance {
-      color: #fff;
-      background-color: $medium-green;
-      padding: 7px;
-
-      .glance-collectable { font-size: 16px; }
-
-      .percentage {
-        display: block;
-        font-size: 24px;
-      }
-
-      .glance-completion-label {
-        font-size: 12px;
-      }
-    }
-  }
 }

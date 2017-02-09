@@ -13,15 +13,7 @@
       background-color: $medium-green;
       letter-spacing: 2px;
       font-weight: 300;
-
-      a {
-        color: #fff;
-
-        .glyphicon {
-          font-size: 12px;
-          top: 0;
-        }
-      }
+      color: #fff;      
     }
 
     .collectable-progress {
@@ -48,3 +40,48 @@
     }
   }
 }
+
+.collectable-selector {
+   list-style: none;
+   margin-bottom: 0;
+   padding-left: 0;
+
+   :first-child > .collectable-glance::before {
+    border-top: 1px solid #111;
+    content: '';
+    position: relative;
+    display: block;
+    width: 113%;
+    top: -17px;
+    left: -15px;
+   }
+
+   :last-child > .collectable-glance::after {
+     width: 113%;
+     display: block;
+     content: '';
+     position: relative;
+     left: -15px;
+     top: 17px;
+     border-bottom: 1px solid #777;
+   }
+
+    .collectable-glance {
+      color: #fff;
+      padding: 15px;
+      border-bottom: 1px solid #111;
+      border-top: 1px solid #777;
+      
+
+      .glance-name { font-size: 16px; }
+
+      .percentage {
+        display: block;
+        font-size: 24px;
+      }
+
+      .glance-completion-label {
+        font-size: 12px;
+      }
+    }
+  }

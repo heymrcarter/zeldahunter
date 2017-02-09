@@ -8,7 +8,8 @@ function setup(customProps) {
     collectable: {
       name: '',
       progress: []
-    }
+    },
+    progressUrl: ''
   };
 
   const props = Object.assign({}, defaultProps, customProps);
@@ -17,7 +18,7 @@ function setup(customProps) {
 }
 
 describe('CollectableOverview', () => {
-  it('renders the collectable name as a link to the details', () => {
+  it('renders the collectable name', () => {
     const collectable = {
       name: 'Item 1',
       progress: []
@@ -25,7 +26,7 @@ describe('CollectableOverview', () => {
 
     const wrapper = setup({ collectable });
 
-    expect(wrapper.find('.collectable-name a').text()).to.equal('Item 1');
+    expect(wrapper.find('.collectable-name').text()).to.equal('Item 1');
   });
 
   it('renders a a list of each collectable item', () => {
