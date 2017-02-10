@@ -1,3 +1,5 @@
+@import 'colors';
+
 .navbar-header { width: calc(25% - 27px); }
 
 .navbar-brand img {
@@ -18,4 +20,28 @@
 
     .dropdown-menu { background-color: #fff; }
   }
+}
+
+.left-rail {
+    height: 100vh;
+    background-color: $grey;
+    position: fixed;
+    width: calc(25% - 20px; );
+    position: fixed;
+    margin-top: -20px;
+
+    .triforce {
+      width: 150px;
+      margin: 50px auto 0;
+    }
+
+    .zeldahunter {
+      text-transform: uppercase;
+      font-size: 20px;
+      color: $gold;
+      font-weight: lighter;
+      letter-spacing: 3px;
+      text-align: center;
+      margin-top: 20px;
+    }
 }
