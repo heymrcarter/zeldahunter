@@ -230,24 +230,26 @@ class PlaythroughManager extends Component {
     const playthroughPlurality = this.state.playthroughsInProgress > 1 ? 'Playthroughs' : 'Playthrough'; 
     
     return (
-      <div className="container-fluid m4-bottom">
-        <h2 className="playthrough-heading">
-          <span>
-            {this.state.playthroughsInProgress === 0 && 'No Playthroughs Started'}
-            {this.state.playthroughsInProgress > 0 && `${this.state.playthroughsInProgress} ${playthroughPlurality} Started`}
-          </span>
-        </h2>
+      <div className="playthrough-manager">
+        <div className="row">
+          <h2 className="playthrough-heading">
+            <span>
+              {this.state.playthroughsInProgress === 0 && 'No Playthroughs Started'}
+              {this.state.playthroughsInProgress > 0 && `${this.state.playthroughsInProgress} ${playthroughPlurality} Started`}
+            </span>
+          </h2>
+        </div>
 
         <div className="row m5-top">
-          <div className="col-sm-12 col-md-4 m3-bottom">
+          <div className="col-sm-12 m3-bottom">
             {this.renderComponentForSlot('slot-1')}
           </div>
 
-          <div className="col-sm-12 col-md-4 m3-bottom">
+          <div className="col-sm-12 m3-bottom">
             {this.renderComponentForSlot('slot-2')}
           </div>
 
-          <div className="col-sm-12 col-md-4 m3-bottom">
+          <div className="col-sm-12 m3-bottom">
             {this.renderComponentForSlot('slot-3')}
           </div>
         </div>

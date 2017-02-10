@@ -16,7 +16,7 @@ const DeletePlaythrough = ({ playthrough, position, deleteHandler, changeHandler
           className={isValid ? 'valid' : 'invalid'}
           name="playthrough-name"
           id="playthrough-name"
-          placeholder="Type playthough name to continue"
+          placeholder="Enter name to continue"
           onKeyUp={changeHandler}/>
         <span className={isValid ? 'glyphicon glyphicon-ok valid' : 'glyphicon glyphicon-remove invalid'} aria-hidden="true" />
       </div>

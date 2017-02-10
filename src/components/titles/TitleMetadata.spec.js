@@ -1,13 +1,13 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
 import TitleMetadata from './TitleMetadata';
 
 function setup(customProps = {}) {
   const defaultProps = {
-    title: {},
-    mini: false
+    title: {
+      collectables: []
+    }
   };
 
   const props = Object.assign({}, defaultProps, customProps);
@@ -38,24 +38,5 @@ describe('TitleMetadata', () => {
     const wrapper = setup ({ title });
     expect(wrapper.find('img').prop('src')).to.equal('the-logo-url');
     expect(wrapper.find('img').prop('alt')).to.equal('title');
-  });
-
-  it('can be toggled to mini view', () => {
-    const wrapper = setup({ mini: true});
-    expect(wrapper.find('.mini')).to.have.length(1);
-  });
-
-  it('has an expand button when in mini view', () => {
-    const wrapper = setup({ mini: true });
-    expect(wrapper.find('.expand-title')).to.have.length(1);
-  });
-
-  it('handles user clicks on the expand button', () => {
-    const expand = spy();
-    const wrapper = setup({ mini: true, expand });
-
-    wrapper.find('.expand-title').simulate('click');
-
-    expect(expand.calledOnce).to.equal(true);
   });
 });

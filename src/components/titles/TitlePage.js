@@ -10,11 +10,8 @@ class TitlePage extends Component {
 
    this.state = {
       title: props.title,
-      playthroughs: props.playthroughs,
-      miniMetadata: props.playthroughs.length > 0
-    };
-
-    this.showAllMetadata = this.showAllMetadata.bind(this);
+      playthroughs: props.playthroughs
+   };    
   }  
 
   componentWillReceiveProps(nextProps) {
@@ -26,8 +23,7 @@ class TitlePage extends Component {
     
     if (!deepEqual(this.state.playthroughs, nextProps.playthroughs)) {
       const newState = {
-        playthroughs: Object.assign([], [...nextProps.playthroughs]),
-        miniMetadata: nextProps.playthroughs.length > 0
+        playthroughs: Object.assign([], [...nextProps.playthroughs])
       };
 
       if (newTitle) {
@@ -38,16 +34,18 @@ class TitlePage extends Component {
     }
   }
 
-  showAllMetadata(event) {
-    event.preventDefault();
-    this.setState({ miniMetadata: false });
-  }
-
   render() {
     return (
-      <div>
-        <TitleMetadata title={this.state.title} mini={this.state.miniMetadata} expand={this.showAllMetadata}/>
-        <PlaythroughManager titleId={this.state.title.id} />
+      <div className="row p3-top">
+        <div className="col-sm-12 col-md-3 p0-left">
+          <div className="left-rail">
+            <PlaythroughManager titleId={this.state.title.id} />
+          </div>
+        </div>
+
+        <div className="col-sm-12 col-md-9 p0-left">
+          <TitleMetadata title={this.state.title} />          
+        </div>
       </div>
     );
   }

@@ -1,35 +1,34 @@
 @import 'colors';
 
 .title-metadata {
-  border: 1px $medium-green solid;
-  padding: 15px 12px 20px 12px;
-  margin-bottom: 30px;
-  background: #fff;
+  .title-info {
+    border: 1px $medium-green solid;
+    padding: 15px 12px 20px 12px;
+    margin-bottom: 20px;
+    background: #fff;
 
-  .row { display: table; }
-  [class*="col-"] {
-    float: none;
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-  h1 {
-    font-size: 46px;
-    color: $grey;
-  }
-
-  aside {
-    font-size: 18px;
-  }
-
-  &.mini {
-    .expand-title {
-      text-align: center;
-      width: 60px;
-      display: block;
-      margin: 0 auto;
+    .row { display: table; }
+    [class*="col-"] {
+      float: none;
+      display: table-cell;
+      vertical-align: middle;
     }
 
-    aside { display: none; }
+    h1 {
+      font-size: 46px;
+      color: $grey;
+    }
+
+    aside {
+      font-size: 18px;
+    }
+  }
+
+  .title-collectables {
+    border: 1px $medium-green solid;
+    padding: 15px 12px 20px 12px;
+    margin-bottom: 20px;
+    background: #fff;
+    font-size: 16px;
   }
 }

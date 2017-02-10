@@ -1,14 +1,11 @@
 import React, { PropTypes } from 'react';
 
-const TitleMetadata = ({ title, mini, expand }) => {
-  const { name, description, releaseDate, logo } = title;
-  const base = 'title-metadata';
-  const wrapperClass = mini ? `${base} mini` : base;
-  const expandBtn = (<a href="#expand-title" onClick={expand} className="expand-title">Show all</a>);
-
+const TitleMetadata = ({ title }) => {
+  const { name, description, releaseDate, logo, collectables } = title;
+  
   return (
-    <div className="container-fluid">
-      <div className={wrapperClass}>
+    <div className="title-metadata">
+      <div className="title-info">
         <div className="row">
           <div className="hidden-sm col-md-3">
             <img src={logo} alt={name} />
@@ -19,8 +16,6 @@ const TitleMetadata = ({ title, mini, expand }) => {
           </div>
         </div>
 
-        {mini && expandBtn}
-
         <aside className="row">
           <div className="col-sm-12">
             <p className="m2-top title-description">{description}</p>
@@ -28,14 +23,28 @@ const TitleMetadata = ({ title, mini, expand }) => {
           </div>
         </aside>
       </div>
+
+      <div className="title-collectables">
+        <div className="row">
+          <div className="col-sm-12">
+          
+            <h2>Items to collect</h2>
+            <ul className="list-unstyled">
+              {
+                collectables.map((collectable, i) => {
+                  return <li key={i}>{collectable}</li>;
+                })
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 TitleMetadata.propTypes = {
-  title: PropTypes.object.isRequired,
-  mini: PropTypes.bool.isRequired,
-  expand: PropTypes.func.isRequired
+  title: PropTypes.object.isRequired
 };
 
 export default TitleMetadata;
