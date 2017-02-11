@@ -31,6 +31,7 @@ const TitleMetadata = ({ title }) => {
             <h2>Items to collect</h2>
             <ul className="list-unstyled">
               {
+                collectables &&
                 collectables.map((collectable, i) => {
                   return <li key={i}>{collectable}</li>;
                 })

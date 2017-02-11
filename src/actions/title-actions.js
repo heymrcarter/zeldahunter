@@ -1,5 +1,7 @@
 import * as actions from './action-types';
-import titleService from '../services/title-service';
+import TitleService from '../services/title-service';
+
+const titleService = new TitleService();
 
 export function loadTitlesSuccess(titles) {
   return { type: actions.LOAD_TITLES_SUCCESS, titles: titles };

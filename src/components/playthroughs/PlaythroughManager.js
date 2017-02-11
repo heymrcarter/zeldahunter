@@ -228,11 +228,14 @@ class PlaythroughManager extends Component {
 
   render() {
     const playthroughPlurality = this.state.playthroughsInProgress > 1 ? 'Playthroughs' : 'Playthrough'; 
-    
+    let headingClass = 'playthrough-heading';
+    if (this.state.playthroughsInProgress === 0) {
+      headingClass += ' no-playthroughs';
+    }
     return (
       <div className="playthrough-manager">
         <div className="row">
-          <h2 className="playthrough-heading">
+          <h2 className={headingClass}>
             <span>
               {this.state.playthroughsInProgress === 0 && 'No Playthroughs Started'}
               {this.state.playthroughsInProgress > 0 && `${this.state.playthroughsInProgress} ${playthroughPlurality} Started`}

@@ -1,25 +1,34 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import CollectableOverview from './CollectableOverview';
 
-const ProgressOverview = ({ progress, progressUrl }) => {
-  return (
-    <div className="progress-overview row">
-      {
-        progress.map((collectable, i) => {
-          return (
-            <div key={i} className="m2-bottom col-sm-12">
-              <CollectableOverview collectable={collectable} progressUrl={progressUrl} />
-            </div>
-          );
-        })
-      }
-    </div>    
-  );
-};
+class ProgressOverview extends Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  componentDidMount() {
+    salvattore.registerGrid(document.querySelector('#progress-overview'));
+  }
+
+  render() {
+    return (
+      <div className="progress-overview" id="progress-overview" data-columns>
+        {
+          this.props.progress.map((collectable, i) => {
+            return (
+              <div key={i} className="m2-bottom">
+                <CollectableOverview collectable={collectable} />
+              </div>
+            );
+          })
+        }
+      </div>    
+    );
+  }
+}
 
 ProgressOverview.propTypes = {
   progress: PropTypes.array.isRequired,
-  progressUrl: PropTypes.string.isRequired
 };
 
 export default ProgressOverview;

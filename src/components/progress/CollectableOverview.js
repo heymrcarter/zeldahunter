@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const CollectableOverview = ({ collectable, progressUrl }) => {
+const CollectableOverview = ({ collectable }) => {
   return (
     <div className="collectable">
       <div className="collectable-name">
@@ -33,7 +33,6 @@ const CollectableOverview = ({ collectable, progressUrl }) => {
 
 CollectableOverview.propTypes = {
   collectable: PropTypes.object.isRequired,
-  progressUrl: PropTypes.string.isRequired
 };
 
 export default CollectableOverview;
