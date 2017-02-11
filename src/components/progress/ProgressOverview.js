@@ -3,7 +3,7 @@ import CollectableOverview from './CollectableOverview';
 
 const ProgressOverview = ({ progress, progressUrl }) => {
   return (
-    <div className="progress-overview row m3-top">
+    <div className="progress-overview row">
       {
         progress.map((collectable, i) => {
           return (

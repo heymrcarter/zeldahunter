@@ -38,8 +38,8 @@ class PlaythroughPage extends Component {
     const date = new Date(this.state.playthrough.lastUpdated);
     const formattedDate = dateFormatter(date);
     return (
-      <div className="row playthrough-progress">
-        <div className="col-sm-12 col-md-3">
+      <div className="row playthrough-progress p3-top">
+        <div className="col-sm-12 col-md-3 p0-left">
             <div className="left-rail">
               <PlaythroughHeader
                 playthroughName={this.state.playthrough.name}
@@ -49,7 +49,7 @@ class PlaythroughPage extends Component {
             </div>         
         </div>       
 
-        <div className="col-sm-12 col-md-9">
+        <div className="col-sm-12 col-md-9 p0-left">
           <ProgressOverview
             progress={toProgressOverview(this.state.progress.collectables)} progressUrl={this.state.progressUrl} />
           </div>

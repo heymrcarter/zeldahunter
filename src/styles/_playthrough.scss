@@ -153,17 +153,7 @@
 }
 
 .playthrough-progress {
-  .left-rail {
-    height: 100vh;
-    background-color: $grey;
-    position: fixed;
-    width: calc(25% - 20px; );
-  }
 
-  [class^='col-'] {
-    padding-left: 0;
-    position: relative;
-  }
 }
 
 .playthrough-header {
