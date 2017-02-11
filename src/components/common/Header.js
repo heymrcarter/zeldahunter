@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import TitleList from '../titles/TitleList';
 
-const Header = ({ titles, currentTitleId = '' }) => {
+const Header = ({ titles, currentTitleId }) => {
   let dropdownText = 'Titles';
   const title = titles.filter(t => t.id === currentTitleId)[0];
   

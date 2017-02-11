@@ -42,7 +42,7 @@ App.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     titles: state.titles,
-    currentTitleId: ownProps.params.titleId
+    currentTitleId: ownProps.params.titleId || 'Titles'
   };
 }
 
